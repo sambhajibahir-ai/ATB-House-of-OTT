@@ -47,6 +47,7 @@ export async function saveBookingToGoogleSheets(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(rowData),
+        redirect: "follow",
       });
 
       if (response.ok) {

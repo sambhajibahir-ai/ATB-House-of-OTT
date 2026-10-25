@@ -61,7 +61,16 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
-    var data = JSON.parse(e.postData.contents);
+    var data = {};
+    if (e && e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (err) {
+        data = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
+      data = e.parameter;
+    }
 
     var newRow = [
       data.timestamp || new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
