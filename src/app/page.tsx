@@ -28,7 +28,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background text-slate-100">
+    <div className="relative min-h-screen bg-white text-slate-900">
       {/* Navigation Header */}
       <Header />
 

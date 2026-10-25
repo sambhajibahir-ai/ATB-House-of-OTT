@@ -9,16 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0c0e14",
-        surface: "#141722",
-        "surface-card": "#1a1e2c",
-        "surface-border": "#2c3349",
+        background: "#FFFFFF",
+        surface: "#F8FAFC",
+        "surface-card": "#FFFFFF",
+        "surface-border": "#E2E8F0",
         brand: {
-          red: "#C51D24",
-          crimson: "#D32F2F",
-          burgundy: "#991B1B",
-          amber: "#D97706",
-          gold: "#EAB308",
+          red: "#991B1B",       // Sober deep wine/burgundy
+          crimson: "#B91C1C",   // Refined dark red
+          slate: "#0F172A",     // Deep charcoal
+          amber: "#B45309",     // Sober warm amber
+          gold: "#D97706",
         },
       },
       fontFamily: {

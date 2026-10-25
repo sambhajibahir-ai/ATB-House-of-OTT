@@ -44,16 +44,16 @@ export function GallerySection() {
   ];
 
   return (
-    <section id="gallery" aria-labelledby="gallery-heading" className="py-20 relative bg-slate-950/70 border-b border-slate-800">
+    <section id="gallery" aria-labelledby="gallery-heading" className="py-20 relative bg-slate-50/70 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 uppercase tracking-wide mb-3">
+          <div className="inline-block px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
             Real Setup Vibes
           </div>
-          <h2 id="gallery-heading" className="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+          <h2 id="gallery-heading" className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
             Photo Gallery
           </h2>
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             Real photos from celebrations, private movie screenings, and surprise parties at our Ravet venue.
           </p>
         </div>
@@ -63,7 +63,7 @@ export function GallerySection() {
           {galleryItems.map((item) => (
             <div
               key={item.id}
-              className="relative h-64 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 shadow-sm"
+              className="relative h-64 rounded-xl overflow-hidden bg-white border border-slate-200 shadow-xs"
             >
               <Image
                 src={item.image}
@@ -72,13 +72,13 @@ export function GallerySection() {
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
 
               <div className="absolute bottom-3 left-3 right-3">
-                <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-850/90 text-slate-200 border border-slate-750 mb-1">
+                <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-white/90 text-slate-800 border border-slate-250 mb-1 shadow-xs">
                   {item.tag}
                 </span>
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-semibold text-white drop-shadow-xs">
                   {item.title}
                 </h3>
               </div>

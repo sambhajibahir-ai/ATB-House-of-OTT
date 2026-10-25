@@ -43,23 +43,23 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
   };
 
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="py-20 relative bg-slate-950/70 border-b border-slate-800">
+    <section id="occasions" aria-labelledby="occasions-heading" className="py-20 relative bg-slate-50/70 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 uppercase tracking-wide mb-3">
+          <div className="inline-block px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
             Celebration Experiences
           </div>
-          <h2 id="occasions-heading" className="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+          <h2 id="occasions-heading" className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
             Tailored For Your Occasion
           </h2>
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             From intimate anniversary dates to high-energy birthday parties, our private theater 
             spaces are personalized with theme decor, music, and screen surprises.
           </p>
         </div>
 
-        {/* Accessible Tab List (WAI-ARIA Tabs pattern) */}
+        {/* Tab List */}
         <div 
           role="tablist" 
           aria-label="Celebration Occasions"
@@ -76,10 +76,10 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
                 aria-controls={`panel-${occ.id}`}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(occ.id)}
-                className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-2 shrink-0 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
+                className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-2 shrink-0 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none ${
                   isActive
-                    ? "bg-slate-800 text-white border border-slate-700 shadow-sm"
-                    : "bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-850 border border-slate-800"
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200"
                 }`}
               >
                 {getIcon(occ.icon)}
@@ -89,16 +89,16 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
           })}
         </div>
 
-        {/* Active Tab Panel */}
+        {/* Tab Panel */}
         <div 
           role="tabpanel"
           id={`panel-${currentOccasion.id}`}
           aria-labelledby={`tab-${currentOccasion.id}`}
-          className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-md"
+          className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Visual Image */}
-            <div className="relative h-64 sm:h-80 lg:h-full min-h-[300px] bg-slate-950">
+            <div className="relative h-64 sm:h-80 lg:h-full min-h-[300px] bg-slate-100">
               <Image
                 src={currentOccasion.image}
                 alt={`${currentOccasion.title} setup at House of OTT Ravet`}
@@ -107,7 +107,7 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-md text-xs font-medium bg-slate-950/80 backdrop-blur-sm text-amber-300 border border-slate-700">
+                <span className="px-2.5 py-1 rounded-md text-xs font-medium bg-white/90 backdrop-blur-sm text-slate-800 border border-slate-200 shadow-xs">
                   Custom Decor Included
                 </span>
               </div>
@@ -116,25 +116,25 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
             {/* Description & Perks */}
             <div className="p-6 sm:p-8 flex flex-col justify-between">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-wide text-red-400 mb-1">
+                <div className="text-xs font-semibold uppercase tracking-wide text-brand-red mb-1">
                   Private Celebration
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
                   {currentOccasion.title}
                 </h3>
-                <p className="text-sm text-slate-300 mb-5 leading-relaxed">
+                <p className="text-sm text-slate-600 mb-5 leading-relaxed">
                   {currentOccasion.description}
                 </p>
 
                 {/* Highlights List */}
                 <div className="mb-6">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2.5">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2.5">
                     What&apos;s Included:
                   </div>
                   <ul className="space-y-2">
                     {currentOccasion.highlights.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -143,11 +143,11 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-5 border-t border-slate-800 flex flex-col sm:flex-row items-center gap-3">
+              <div className="pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-3">
                 <button
                   type="button"
                   onClick={() => handleBookOccasion(currentOccasion.title)}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wide bg-brand-red text-white hover:bg-red-700 transition-colors flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wide bg-brand-red text-white hover:bg-red-800 transition-colors flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
                 >
                   <span>Book for {currentOccasion.title.split(" ")[0]}</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -157,7 +157,7 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
                   href="https://wa.me/919168530789?text=Hi%20House%20of%20OTT%20Ravet!%20I%20want%20to%20discuss%20a%20custom%20celebration%20theme."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-lg font-medium text-xs text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-750 border border-slate-700 text-center transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-lg font-medium text-xs text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-center transition-colors focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
                 >
                   Custom Theme Discussion
                 </a>

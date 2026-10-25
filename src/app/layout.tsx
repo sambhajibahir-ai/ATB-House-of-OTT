@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "House of OTT | Private Theater & Celebration Lounge in Ravet, Pune",
     description:
-      "Your Private Cinema. Your Ultimate Celebration. Premium 150\"-200\" 4K screens, Dolby Atmos audio & private celebrations in Ravet, Pune.",
+      "Your Private Cinema. Your Personal Celebration. Premium 150\"-200\" 4K screens, Dolby Atmos audio & private celebrations in Ravet, Pune.",
     url: SITE_CONFIG.url,
     siteName: "House of OTT",
     images: [
@@ -69,7 +69,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Schema.org Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -83,11 +82,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background text-slate-100 antialiased min-h-screen">
-        {/* Accessibility Skip Link (WCAG 2.4.1) */}
+      <body className="bg-white text-slate-900 antialiased min-h-screen">
+        {/* Skip to Main Content Link (WCAG 2.4.1) */}
         <a
           href="#main-content"
-          className="sr-only not-sr-only:focus fixed top-4 left-4 z-50 bg-amber-400 text-black font-semibold py-2 px-4 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-black"
+          className="sr-only not-sr-only:focus fixed top-4 left-4 z-50 bg-slate-900 text-white font-semibold py-2 px-4 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
         >
           Skip to main content
         </a>
