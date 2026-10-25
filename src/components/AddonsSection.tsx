@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ADDONS } from "@/data/addons";
-import { Sparkles, Cake, Camera, Utensils, Heart, Plus, Check } from "lucide-react";
+import { Cake, Camera, Utensils, Heart, Sparkles, Plus } from "lucide-react";
 
 interface AddonsSectionProps {
   onToggleAddon?: (addonId: string) => void;
@@ -12,12 +12,12 @@ export function AddonsSection({ onToggleAddon }: AddonsSectionProps) {
   const [filter, setFilter] = useState<string>("all");
 
   const categories = [
-    { id: "all", label: "All Add-ons" },
-    { id: "cake", label: "Cakes & Sweets", icon: Cake },
-    { id: "effect", label: "Fog & Surprises", icon: Sparkles },
-    { id: "decor", label: "Decor & Roses", icon: Heart },
-    { id: "photo", label: "Photography", icon: Camera },
-    { id: "food", label: "Snacks & Food", icon: Utensils },
+    { id: "all", label: "All Items" },
+    { id: "cake", label: "Cakes", icon: Cake },
+    { id: "effect", label: "Special Effects", icon: Sparkles },
+    { id: "decor", label: "Decor & Flowers", icon: Heart },
+    { id: "photo", label: "Photoshoot", icon: Camera },
+    { id: "food", label: "Snacks Menu", icon: Utensils },
   ];
 
   const filteredAddons = filter === "all" 
@@ -35,35 +35,40 @@ export function AddonsSection({ onToggleAddon }: AddonsSectionProps) {
   };
 
   return (
-    <section id="addons" className="py-20 relative">
+    <section id="addons" aria-labelledby="addons-heading" className="py-20 relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-crimson/10 border border-brand-crimson/20 text-brand-crimson text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Customize Your Party</span>
+          <div className="inline-block px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 uppercase tracking-wide mb-3">
+            Add-ons &amp; Surprises
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Add-ons, Cakes & Special Effects
+          <h2 id="addons-heading" className="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+            Custom Add-ons &amp; Cakes
           </h2>
-          <p className="text-base sm:text-lg text-gray-400">
-            Elevate your celebration with signature cinematic fog entry, fresh bakery cakes, 
-            LED romantic pathways, and professional HD photography.
+          <p className="text-sm sm:text-base text-slate-300">
+            Enhance your celebration with fresh bakery cakes, cinematic fog entry, 
+            romantic LED candle pathways, and HD photography.
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+        {/* Category Filter Buttons */}
+        <div 
+          role="group" 
+          aria-label="Filter Add-ons by Category"
+          className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-3 mb-8 no-scrollbar"
+        >
           {categories.map((cat) => {
             const isActive = filter === cat.id;
             return (
               <button
                 key={cat.id}
+                type="button"
+                aria-pressed={isActive}
                 onClick={() => setFilter(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors shrink-0 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                   isActive
-                    ? "bg-white text-black font-bold shadow-md"
-                    : "bg-surface-card text-gray-400 hover:text-white hover:bg-white/5 border border-white/5"
+                    ? "bg-slate-200 text-slate-950 font-bold shadow-sm"
+                    : "bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800"
                 }`}
               >
                 {cat.label}
@@ -73,42 +78,44 @@ export function AddonsSection({ onToggleAddon }: AddonsSectionProps) {
         </div>
 
         {/* Addons Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredAddons.map((addon) => (
             <div
               key={addon.id}
-              className="rounded-2xl bg-surface-card border border-white/10 p-6 flex flex-col justify-between hover:border-brand-crimson/40 transition-all group"
+              className="rounded-xl bg-slate-900 border border-slate-800 p-5 flex flex-col justify-between hover:border-slate-700 transition-colors"
             >
               <div>
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-base font-bold text-white group-hover:text-brand-crimson transition-colors">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <h3 className="text-sm sm:text-base font-bold text-white">
                     {addon.name}
                   </h3>
                   {addon.popular && (
-                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-brand-red/20 text-brand-crimson border border-brand-red/30">
+                    <span className="shrink-0 px-2 py-0.5 rounded text-[11px] font-semibold bg-red-950 text-red-300 border border-red-800">
                       Popular
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed mb-6">
+                <p className="text-xs text-slate-300 leading-relaxed mb-5">
                   {addon.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] text-gray-400 uppercase font-semibold">Price</div>
-                  <div className="text-xl font-extrabold text-white">
+                  <div className="text-[11px] text-slate-400 font-medium">Price</div>
+                  <div className="text-lg font-bold text-white">
                     ₹{addon.price}
                   </div>
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => handleSelectAddon(addon.id)}
-                  className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-brand-red text-xs font-bold text-white border border-white/10 hover:border-brand-red transition-all flex items-center gap-1.5"
+                  aria-label={`Add ${addon.name} for ₹${addon.price}`}
+                  className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-brand-red text-xs font-semibold text-slate-200 hover:text-white border border-slate-700 hover:border-brand-red transition-colors flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Add to Booking</span>
+                  <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Add to Slot</span>
                 </button>
               </div>
             </div>

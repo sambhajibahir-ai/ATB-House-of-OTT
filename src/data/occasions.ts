@@ -86,3 +86,4 @@ export const OCCASIONS: Occasion[] = [
     icon: "Smile"
   }
 ];
+

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | House of OTT Ravet",
   },
   description:
-    "Book Pune's premier private theater in Ravet for Birthdays, Romantic Dates, Anniversaries, Proposals & Squad Parties. 150\"-200\" 4K laser screens, 1200W Dolby Atmos, cloud fog entry, custom neon decor & outside food allowed.",
+    "Private screening theater and celebration venue in Ravet, Pune. 150\"-200\" 4K screens, Dolby Atmos sound, custom celebrations for birthdays, anniversaries, and movie dates. Advance ₹750.",
   keywords: [
     "Private Theater in Ravet Pune",
     "Private Cinema Hall Pune",
@@ -20,26 +20,18 @@ export const metadata: Metadata = {
     "Mini Theater For Rent Near Wakad",
     "Private Screening Room Near Hinjawadi",
     "Anniversary Celebration Venue Ravet",
-    "Bride to Be Party Private Theater Pune",
     "House of OTT Ravet",
-    "4K Dolby Atmos Private Theater Pune",
-    "Couple Private Theater Pune",
   ],
   authors: [{ name: "House of OTT Ravet" }],
   creator: "House of OTT",
   publisher: "House of OTT",
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
   alternates: {
     canonical: SITE_CONFIG.url,
   },
   openGraph: {
     title: "House of OTT | Private Theater & Celebration Lounge in Ravet, Pune",
     description:
-      "Your Private Cinema. Your Ultimate Celebration. Experience 150\"-200\" 4K screens, 1200W Dolby Atmos sound, cloud fog entry & custom celebrations in Ravet, Pune.",
+      "Your Private Cinema. Your Ultimate Celebration. Premium 150\"-200\" 4K screens, Dolby Atmos audio & private celebrations in Ravet, Pune.",
     url: SITE_CONFIG.url,
     siteName: "House of OTT",
     images: [
@@ -63,13 +55,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -98,7 +83,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#08090C] text-white selection:bg-brand-red selection:text-white antialiased min-h-screen">
+      <body className="bg-background text-slate-100 antialiased min-h-screen">
+        {/* Accessibility Skip Link (WCAG 2.4.1) */}
+        <a
+          href="#main-content"
+          className="sr-only not-sr-only:focus fixed top-4 left-4 z-50 bg-amber-400 text-black font-semibold py-2 px-4 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-black"
+        >
+          Skip to main content
+        </a>
         {children}
       </body>
     </html>

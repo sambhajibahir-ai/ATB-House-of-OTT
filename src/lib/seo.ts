@@ -125,3 +125,4 @@ export function generateFaqSchema(faqs: { question: string; answer: string }[]) 
     })),
   };
 }
+

@@ -9,41 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#08090C",
-        surface: "#111319",
-        "surface-card": "#181B23",
-        "surface-border": "#282E3E",
+        background: "#0c0e14",
+        surface: "#141722",
+        "surface-card": "#1a1e2c",
+        "surface-border": "#2c3349",
         brand: {
-          red: "#E50914",
-          crimson: "#FF2A4D",
-          amber: "#F59E0B",
-          gold: "#FBBF24",
-          purple: "#8B5CF6",
-          neon: "#00F0FF",
+          red: "#C51D24",
+          crimson: "#D32F2F",
+          burgundy: "#991B1B",
+          amber: "#D97706",
+          gold: "#EAB308",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
-      },
-      animation: {
-        "pulse-glow": "pulseGlow 2.5s infinite",
-        "float": "float 4s ease-in-out infinite",
-        "shimmer": "shimmer 2s linear infinite",
-      },
-      keyframes: {
-        pulseGlow: {
-          "0%, 100%": { opacity: "0.6", transform: "scale(1)" },
-          "50%": { opacity: "1", transform: "scale(1.03)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
+        sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
       },
     },
   },

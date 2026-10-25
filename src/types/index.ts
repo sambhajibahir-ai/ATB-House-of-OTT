@@ -84,3 +84,4 @@ export interface ReviewItem {
   theaterName: string;
   verified: boolean;
 }
+

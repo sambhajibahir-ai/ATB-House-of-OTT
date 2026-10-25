@@ -3,96 +3,81 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 8, 9, 12;
-  --background-end-rgb: 15, 17, 23;
+  --background: #0c0e14;
+  --foreground: #f1f5f9;
+}
+
+/* Global accessible baseline */
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #08090C;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  overflow-x: hidden;
+  color: var(--foreground);
+  background-color: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar */
+/* Global focus-visible indicator for keyboard accessibility (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid #EAB308;
+  outline-offset: 2px;
+}
+
+/* Accessibility: Respect user motion preferences (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Screen reader utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Sober, clean custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0f15;
+  background: #0f121a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a3042;
+  background: #2a3147;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E50914;
-}
-
-/* Cinematic glowing border effects */
-.glow-box-red {
-  box-shadow: 0 0 30px rgba(229, 9, 20, 0.25);
-}
-
-.glow-box-amber {
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
-}
-
-.text-gradient-red {
-  background: linear-gradient(135deg, #FF334B 0%, #E50914 50%, #B8000A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-gold {
-  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Glass card styling */
-.glass-panel {
-  background: rgba(24, 27, 35, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel-hover:hover {
-  border-color: rgba(229, 9, 20, 0.4);
-  transform: translateY(-4px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Shimmer effect for badges */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.shimmer-badge {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-badge::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-  animation: shimmer 2.5s infinite;
+  background: #3e4866;
 }

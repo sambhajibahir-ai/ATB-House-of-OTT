@@ -28,11 +28,11 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#08090C] text-white">
+    <div className="relative min-h-screen bg-background text-slate-100">
       {/* Navigation Header */}
       <Header />
 
-      <main>
+      <main id="main-content">
         {/* 1. Hero Showcase */}
         <HeroSection />
 
@@ -75,3 +75,4 @@ export default function HomePage() {
     </div>
   );
 }
+

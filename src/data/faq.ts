@@ -56,3 +56,4 @@ export const FAQS: FAQItem[] = [
     answer: "100% Yes. Once your slot begins, the theater room is completely private and dedicated solely to you and your invited guests. Our staff only enters if you press the service bell or request food/assistance."
   }
 ];
+

@@ -35,3 +35,4 @@ export const TIME_SLOTS: TimeSlot[] = [
     isPopular: true
   }
 ];
+

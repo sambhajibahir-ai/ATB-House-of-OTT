@@ -102,3 +102,4 @@ export function generateWhatsAppMessage(booking: BookingFormData): string {
 
   return `https://wa.me/${phone}?text=${message}`;
 }
+

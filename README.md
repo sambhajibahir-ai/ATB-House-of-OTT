@@ -116,3 +116,4 @@ npm run build
 - **Icons:** Lucide React
 - **Structured Data:** Schema.org JSON-LD (LocalBusiness, EntertainmentBusiness, FAQPage)
 - **Data Storage:** Google Sheets API / Webhook Integration + WhatsApp Instant Connect
+

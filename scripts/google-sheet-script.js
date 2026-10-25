@@ -113,3 +113,4 @@ function doGet(e) {
     .createTextOutput(JSON.stringify({ status: "active", message: "House of OTT Google Sheet Webhook is active and ready." }))
     .setMimeType(ContentService.MimeType.JSON);
 }
+

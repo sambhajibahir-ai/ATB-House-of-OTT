@@ -106,3 +106,4 @@ export const ADDONS: AddonItem[] = [
     description: "2 Medium Fresh Pan Pizzas + 1 Garlic Breadsticks + 1 Cheesy French Fries + 4 Chilled Soft Drinks."
   }
 ];
+

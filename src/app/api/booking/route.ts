@@ -63,3 +63,4 @@ export async function GET() {
     googleSheetsIntegration: process.env.GOOGLE_SHEET_WEBHOOK_URL ? "Configured" : "Pending Webhook URL",
   });
 }
+
