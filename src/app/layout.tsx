@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SITE_CONFIG, generateLocalBusinessSchema, generateFaqSchema } from "@/lib/seo";
 import { FAQS } from "@/data/faq";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: "House of OTT | Private Theater & Celebration Lounge in Ravet, Pune",
+    default: "House of OTT | Luxury Private Theater & Celebration Lounge in Ravet, Pune",
     template: "%s | House of OTT Ravet",
   },
   description:
-    "Private screening theater and celebration venue in Ravet, Pune. 150\"-200\" 4K screens, Dolby Atmos sound, custom celebrations for birthdays, anniversaries, and movie dates. Advance ₹750.",
+    "Pune's premier private mini-theater in Ravet. Ultra-luxurious 150\"-200\" 4K screens, Dolby Atmos sound, custom celebrations for birthdays, anniversaries & movie dates. Lock slot with ₹750 advance.",
   keywords: [
+    "House of OTT Ravet",
     "Private Theater in Ravet Pune",
     "Private Cinema Hall Pune",
     "Birthday Celebration Private Theater PCMC",
@@ -20,7 +22,6 @@ export const metadata: Metadata = {
     "Mini Theater For Rent Near Wakad",
     "Private Screening Room Near Hinjawadi",
     "Anniversary Celebration Venue Ravet",
-    "House of OTT Ravet",
   ],
   authors: [{ name: "House of OTT Ravet" }],
   creator: "House of OTT",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "House of OTT | Private Theater & Celebration Lounge in Ravet, Pune",
     description:
-      "Your Private Cinema. Your Personal Celebration. Premium 150\"-200\" 4K screens, Dolby Atmos audio & private celebrations in Ravet, Pune.",
+      "Your Private Cinema. Your Ultimate Celebration. 150\"-200\" 4K screens, 1200W Dolby Atmos audio, cloud fog entrance & custom celebrations in Ravet, Pune.",
     url: SITE_CONFIG.url,
     siteName: "House of OTT",
     images: [
@@ -82,15 +83,16 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white text-slate-900 antialiased min-h-screen">
-        {/* Skip to Main Content Link (WCAG 2.4.1) */}
+      <body className="bg-[#07080B] text-slate-100 antialiased min-h-screen">
         <a
           href="#main-content"
-          className="sr-only not-sr-only:focus fixed top-4 left-4 z-50 bg-slate-900 text-white font-semibold py-2 px-4 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="sr-only not-sr-only:focus fixed top-4 left-4 z-50 bg-amber-400 text-black font-semibold py-2 px-4 rounded-md shadow-xl focus:outline-none focus:ring-2 focus:ring-black"
         >
           Skip to main content
         </a>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

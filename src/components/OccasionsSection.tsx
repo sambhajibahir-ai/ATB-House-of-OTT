@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { OCCASIONS } from "@/data/occasions";
+import { useTheme } from "@/context/ThemeContext";
 import { Cake, Heart, Sparkles, PartyPopper, Tv, Smile, Check, ArrowRight } from "lucide-react";
 
 interface OccasionsSectionProps {
@@ -10,6 +11,7 @@ interface OccasionsSectionProps {
 }
 
 export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
+  const { config } = useTheme();
   const [activeTab, setActiveTab] = useState<string>(OCCASIONS[0].id);
 
   const getIcon = (iconName: string) => {
@@ -43,19 +45,20 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
   };
 
   return (
-    <section id="occasions" aria-labelledby="occasions-heading" className="py-20 relative bg-slate-50/70 border-b border-slate-200">
+    <section id="occasions" aria-labelledby="occasions-heading" className="py-20 relative bg-[#090C12] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
-            Celebration Experiences
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">
+            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Celebrate Every Milestone</span>
           </div>
-          <h2 id="occasions-heading" className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Tailored For Your Occasion
+          <h2 id="occasions-heading" className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Custom Celebrations &amp; Experiences
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
-            From intimate anniversary dates to high-energy birthday parties, our private theater 
-            spaces are personalized with theme decor, music, and screen surprises.
+          <p className="text-base sm:text-lg text-gray-300">
+            From fairytale candlelight proposals to high-voltage birthday bashes, 
+            we transform our private theater into a personalized wonderland just for you.
           </p>
         </div>
 
@@ -63,7 +66,7 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
         <div 
           role="tablist" 
           aria-label="Celebration Occasions"
-          className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-3 mb-8 no-scrollbar"
+          className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar"
         >
           {OCCASIONS.map((occ) => {
             const isActive = activeTab === occ.id;
@@ -76,10 +79,10 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
                 aria-controls={`panel-${occ.id}`}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(occ.id)}
-                className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-2 shrink-0 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none ${
+                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 shrink-0 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                   isActive
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200"
+                    ? `${config.buttonClass} shadow-lg scale-105`
+                    : "bg-[#11141F] text-gray-300 hover:text-white hover:bg-white/10 border border-white/10"
                 }`}
               >
                 {getIcon(occ.icon)}
@@ -89,16 +92,16 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
           })}
         </div>
 
-        {/* Tab Panel */}
+        {/* Active Tab Panel */}
         <div 
           role="tabpanel"
           id={`panel-${currentOccasion.id}`}
           aria-labelledby={`tab-${currentOccasion.id}`}
-          className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm"
+          className="rounded-3xl bg-[#111420] border border-white/10 overflow-hidden shadow-2xl"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Visual Image */}
-            <div className="relative h-64 sm:h-80 lg:h-full min-h-[300px] bg-slate-100">
+            <div className="relative h-72 sm:h-96 lg:h-full min-h-[340px] bg-black">
               <Image
                 src={currentOccasion.image}
                 alt={`${currentOccasion.title} setup at House of OTT Ravet`}
@@ -106,60 +109,63 @@ export function OccasionsSection({ onSelectOccasion }: OccasionsSectionProps) {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-md text-xs font-medium bg-white/90 backdrop-blur-sm text-slate-800 border border-slate-200 shadow-xs">
+              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#111420] via-transparent to-transparent opacity-80 lg:opacity-60" />
+              
+              <div className="absolute top-4 left-4">
+                <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-black/70 backdrop-blur-md text-amber-300 border border-amber-500/30 flex items-center gap-1.5 shadow-lg">
+                  <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                   Custom Decor Included
                 </span>
               </div>
             </div>
 
             {/* Description & Perks */}
-            <div className="p-6 sm:p-8 flex flex-col justify-between">
+            <div className="p-6 sm:p-10 flex flex-col justify-between">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-wide text-brand-red mb-1">
-                  Private Celebration
+                <div className="text-xs uppercase tracking-wider font-bold text-amber-400 mb-2">
+                  Special Experience
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
                   {currentOccasion.title}
                 </h3>
-                <p className="text-sm text-slate-600 mb-5 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
                   {currentOccasion.description}
                 </p>
 
                 {/* Highlights List */}
-                <div className="mb-6">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2.5">
-                    What&apos;s Included:
+                <div className="space-y-3 mb-8">
+                  <div className="text-xs font-bold uppercase tracking-wider text-gray-400">
+                    What Makes It Special:
                   </div>
-                  <ul className="space-y-2">
-                    {currentOccasion.highlights.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {currentOccasion.highlights.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-sm text-gray-200">
+                      <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                      </div>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-center gap-3">
+              <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
                 <button
                   type="button"
                   onClick={() => handleBookOccasion(currentOccasion.title)}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wide bg-brand-red text-white hover:bg-red-800 transition-colors flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                  className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none ${config.buttonClass}`}
                 >
-                  <span>Book for {currentOccasion.title.split(" ")[0]}</span>
+                  <span>Plan {currentOccasion.title.split(" ")[0]} Now</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </button>
 
                 <a
-                  href="https://wa.me/919168530789?text=Hi%20House%20of%20OTT%20Ravet!%20I%20want%20to%20discuss%20a%20custom%20celebration%20theme."
+                  href="https://wa.me/919168530789?text=Hi%20House%20of%20OTT%20Ravet!%20I%20want%20to%20customize%20a%20celebration%20for%20my%20event."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-lg font-medium text-xs text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-center transition-colors focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                  className="w-full sm:w-auto px-5 py-3.5 rounded-xl font-semibold text-xs text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 text-center transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
                 >
-                  Custom Theme Discussion
+                  Discuss Custom Theme
                 </a>
               </div>
             </div>

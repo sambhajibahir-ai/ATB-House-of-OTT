@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { TheatersSection } from "@/components/TheatersSection";
@@ -28,7 +29,10 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white text-slate-900">
+    <div className="relative min-h-screen bg-[#07080B] text-slate-100 selection:bg-amber-500 selection:text-black">
+      {/* 3-Version Live UI Theme Switcher */}
+      <ThemeSwitcher />
+
       {/* Navigation Header */}
       <Header />
 
@@ -54,7 +58,7 @@ export default function HomePage() {
           initialOccasion={selectedOccasionForBooking}
         />
 
-        {/* 7. Photo Gallery */}
+        {/* 7. Real Photo Gallery & Social Media Grid with Lightbox */}
         <GallerySection />
 
         {/* 8. Google Customer Reviews */}
@@ -75,4 +79,3 @@ export default function HomePage() {
     </div>
   );
 }
-

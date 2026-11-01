@@ -5,24 +5,40 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/context/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "#FFFFFF",
-        surface: "#F8FAFC",
-        "surface-card": "#FFFFFF",
-        "surface-border": "#E2E8F0",
+        background: "#07080B",
+        surface: "#10131A",
+        "surface-card": "#141824",
+        "surface-border": "#242B3D",
         brand: {
-          red: "#991B1B",       // Sober deep wine/burgundy
-          crimson: "#B91C1C",   // Refined dark red
-          slate: "#0F172A",     // Deep charcoal
-          amber: "#B45309",     // Sober warm amber
-          gold: "#D97706",
+          gold: "#E5A93C",
+          amber: "#F59E0B",
+          crimson: "#FF2A4D",
+          red: "#E50914",
+          azure: "#00D2FF",
+          cyan: "#38BDF8",
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
+      },
+      animation: {
+        "pulse-subtle": "pulseSubtle 3s infinite ease-in-out",
+        "shimmer": "shimmer 2.5s infinite",
+      },
+      keyframes: {
+        pulseSubtle: {
+          "0%, 100%": { opacity: "0.85", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.02)" },
+        },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
     },
   },

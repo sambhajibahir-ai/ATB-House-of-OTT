@@ -7,7 +7,7 @@ export const ADDONS: AddonItem[] = [
     category: "cake",
     name: "Dutch Chocolate Truffle Cake (0.5 kg)",
     price: 499,
-    description: "Rich, velvety Belgian chocolate ganache with moist sponge and candles included.",
+    description: "Rich, velvety Belgian chocolate ganache with moist sponge, sparkles & candles included.",
     popular: true
   },
   {
@@ -15,7 +15,7 @@ export const ADDONS: AddonItem[] = [
     category: "cake",
     name: "Heart-Shaped Red Velvet Cake (0.5 kg)",
     price: 599,
-    description: "Classic crimson velvet sponge layered with smooth cream cheese frosting. Perfect for romantic dates.",
+    description: "Crimson velvet sponge layered with smooth cream cheese frosting. Perfect for romantic dates.",
     popular: true
   },
   {
@@ -23,14 +23,14 @@ export const ADDONS: AddonItem[] = [
     category: "cake",
     name: "Classic Black Forest Cake (0.5 kg)",
     price: 449,
-    description: "Traditional chocolate sponge layered with cherries and fresh whipped cream."
+    description: "Traditional chocolate sponge layered with sweet cherries and fresh whipped cream."
   },
   {
     id: "cake-choc-1kg",
     category: "cake",
     name: "Dutch Chocolate Truffle Cake (1.0 kg)",
     price: 899,
-    description: "Large 1 kg cake ideal for squad parties and gatherings of 8+ people."
+    description: "Large 1 kg cake ideal for squad parties and celebrations of 8+ people."
   },
 
   // Effects & Special Surprises
@@ -39,7 +39,7 @@ export const ADDONS: AddonItem[] = [
     category: "effect",
     name: "Cinematic Cloud Fog Entry",
     price: 499,
-    description: "Magical low-lying fog smoke rolling into the room when you enter or cut the cake.",
+    description: "Magical low-lying fog smoke rolling across the floor when you enter or cut the cake.",
     popular: true
   },
   {
@@ -47,7 +47,7 @@ export const ADDONS: AddonItem[] = [
     category: "effect",
     name: "Rose Petal Pathway + LED Candle Aisle",
     price: 599,
-    description: "A breathtaking walkway of fresh red rose petals illuminated by flameless romantic LED candles.",
+    description: "A breathtaking walkway of fresh red rose petals illuminated by romantic flameless LED candles.",
     popular: true
   },
   {
@@ -106,4 +106,3 @@ export const ADDONS: AddonItem[] = [
     description: "2 Medium Fresh Pan Pizzas + 1 Garlic Breadsticks + 1 Cheesy French Fries + 4 Chilled Soft Drinks."
   }
 ];
-

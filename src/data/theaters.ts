@@ -18,17 +18,17 @@ export const THEATERS: TheaterRoom[] = [
     gallery: [
       "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80"
     ],
     features: [
       "150-inch 4K HDR Laser Projection",
       "600W Dolby 5.1 Surround Sound with deep bass",
-      "Plush velvet recliner beds & cozy couple cushions",
+      "Plush velvet couple recliner beds with cozy cushions",
       "Customizable romantic RGB ambient lighting",
       "Netflix, Prime Video, Disney+ Hotstar, YouTube 4K",
       "Private AC climate control",
-      "Outside food delivery allowed",
-      "Surprise video slideshow on screen setup"
+      "Outside food & cake delivery allowed",
+      "Personalized surprise video on giant screen"
     ],
     bestFor: [
       "Romantic Date Nights",
@@ -54,7 +54,7 @@ export const THEATERS: TheaterRoom[] = [
     gallery: [
       "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80"
     ],
     features: [
       "180-inch 4K Ultra-Wide Acoustic Screen",
@@ -90,7 +90,7 @@ export const THEATERS: TheaterRoom[] = [
     gallery: [
       "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80"
     ],
     features: [
       "200-inch 4K IMAX-grade mega projection",
@@ -110,4 +110,3 @@ export const THEATERS: TheaterRoom[] = [
     ]
   }
 ];
-

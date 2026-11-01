@@ -3,26 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #0F172A;
+  --background: #07080B;
+  --foreground: #F8FAFC;
 }
 
 html {
-  color-scheme: light;
+  color-scheme: dark;
   scroll-behavior: smooth;
+  background-color: #07080B;
 }
 
 body {
-  color: var(--foreground);
-  background-color: var(--background);
+  color: #F8FAFC;
+  background-color: #07080B;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* Accessible visible focus indicators (WCAG 2.4.7) */
+/* Accessible focus visible (WCAG 2.4.7) */
 :focus-visible {
-  outline: 2px solid #0F172A;
+  outline: 2px solid #E5A93C;
   outline-offset: 2px;
 }
 
@@ -62,21 +64,29 @@ body {
   white-space: normal;
 }
 
-/* Simple sober scrollbar */
+/* Custom dark scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #090B10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #232B3E;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #384564;
+}
+
+/* Cinematic backdrop blur card */
+.glass-panel-dark {
+  background: rgba(18, 22, 33, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }

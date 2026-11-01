@@ -6,6 +6,7 @@ import { ADDONS } from "@/data/addons";
 import { TIME_SLOTS } from "@/data/slots";
 import { OCCASIONS } from "@/data/occasions";
 import { BookingFormData } from "@/types";
+import { useTheme } from "@/context/ThemeContext";
 import { 
   Calendar, 
   Users, 
@@ -17,7 +18,8 @@ import {
   MapPin, 
   ChevronRight,
   ShieldCheck,
-  Check
+  Check,
+  PartyPopper
 } from "lucide-react";
 
 interface BookingWizardProps {
@@ -26,6 +28,8 @@ interface BookingWizardProps {
 }
 
 export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWizardProps) {
+  const { config } = useTheme();
+
   // Form State
   const [selectedTheaterId, setSelectedTheaterId] = useState<string>(
     initialTheaterId || "cinema-suite"
@@ -59,7 +63,6 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
   const [bookingSuccess, setBookingSuccess] = useState<BookingFormData | null>(null);
   const [whatsAppDirectUrl, setWhatsAppDirectUrl] = useState<string>("");
 
-  // Sync external changes
   useEffect(() => {
     if (initialTheaterId) setSelectedTheaterId(initialTheaterId);
   }, [initialTheaterId]);
@@ -71,7 +74,6 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
   const currentTheater = THEATERS.find((t) => t.id === selectedTheaterId) || THEATERS[0];
   const currentSlot = TIME_SLOTS.find((s) => s.id === selectedSlotId) || TIME_SLOTS[0];
 
-  // Price Calculation
   const basePrice = currentTheater.basePrice;
   const extraGuestsCount = Math.max(0, guestCount - currentTheater.baseCapacity);
   const extraGuestsPrice = extraGuestsCount * currentTheater.extraPersonPrice;
@@ -174,19 +176,20 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
   };
 
   return (
-    <section id="book" aria-labelledby="booking-heading" className="py-20 relative bg-white border-b border-slate-200">
+    <section id="book" aria-labelledby="booking-heading" className="py-20 relative bg-[#07080B] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
-            Instant Online Reservation
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">
+            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Instant Online Reservation • Ravet Venue</span>
           </div>
-          <h2 id="booking-heading" className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Reserve Your Private Slot
+          <h2 id="booking-heading" className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Reserve Your Private Theater Slot
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
-            Select your date, 3-hour time slot, and theater room. Lock in your slot with an advance token 
-            of ₹750. Records are automatically saved to our Google Sheet.
+          <p className="text-base sm:text-lg text-gray-300">
+            Lock in your preferred 3-hour private slot with an advance token of only ₹750. 
+            All bookings sync directly to Google Sheets and our WhatsApp desk.
           </p>
         </div>
 
@@ -195,16 +198,16 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
           {/* Main Form */}
           <form onSubmit={handleBookingSubmit} className="lg:col-span-7 space-y-6" noValidate>
             {/* Step 1: Date & Time Slot */}
-            <fieldset className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
-              <legend className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-800 px-1 mb-4">
-                <Calendar className="w-4 h-4 text-amber-700" aria-hidden="true" />
-                <span>Step 1: Choose Date &amp; Slot</span>
+            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
+              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+                <Calendar className="w-4 h-4" aria-hidden="true" />
+                <span>Step 1: Choose Date &amp; 3-Hour Slot</span>
               </legend>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label htmlFor="booking-event-date" className="text-xs font-medium text-slate-700 block mb-1.5">
-                    Event Date <span className="text-brand-red" aria-hidden="true">*</span>
+                  <label htmlFor="booking-event-date" className="text-xs font-semibold text-gray-300 block mb-1.5">
+                    Event Date:
                   </label>
                   <input
                     id="booking-event-date"
@@ -214,22 +217,22 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                     onChange={(e) => setEventDate(e.target.value)}
                     required
                     aria-required="true"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="booking-slot-select" className="text-xs font-medium text-slate-700 block mb-1.5">
-                    3-Hour Slot <span className="text-brand-red" aria-hidden="true">*</span>
+                  <label htmlFor="booking-slot-select" className="text-xs font-semibold text-gray-300 block mb-1.5">
+                    Select 3-Hour Slot:
                   </label>
                   <select
                     id="booking-slot-select"
                     value={selectedSlotId}
                     onChange={(e) => setSelectedSlotId(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
                   >
                     {TIME_SLOTS.map((slot) => (
-                      <option key={slot.id} value={slot.id}>
+                      <option key={slot.id} value={slot.id} className="bg-[#0F121C]">
                         {slot.timeRange} — {slot.label}
                       </option>
                     ))}
@@ -247,14 +250,14 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                       key={slot.id}
                       aria-pressed={isSelected}
                       onClick={() => setSelectedSlotId(slot.id)}
-                      className={`p-2.5 rounded-lg text-left border transition-colors focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none ${
+                      className={`p-2.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                         isSelected
-                          ? "bg-red-50/80 border-brand-red text-slate-900 ring-1 ring-brand-red/30"
-                          : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+                          ? "bg-white/15 border-amber-400 text-white ring-1 ring-amber-400/40"
+                          : "bg-white/5 border-white/5 text-gray-400 hover:text-white"
                       }`}
                     >
-                      <div className="text-xs font-semibold truncate">{slot.label}</div>
-                      <div className="text-[11px] text-slate-500 truncate">{slot.timeRange}</div>
+                      <div className="text-xs font-bold truncate">{slot.label}</div>
+                      <div className="text-[10px] text-gray-400 truncate">{slot.timeRange}</div>
                     </button>
                   );
                 })}
@@ -262,13 +265,13 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 2: Theater & Guests */}
-            <fieldset className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
-              <legend className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-800 px-1 mb-4">
-                <Users className="w-4 h-4 text-amber-700" aria-hidden="true" />
-                <span>Step 2: Theater Room &amp; Guest Count</span>
+            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
+              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+                <Users className="w-4 h-4" aria-hidden="true" />
+                <span>Step 2: Select Theater &amp; Guest Count</span>
               </legend>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
                 {THEATERS.map((t) => {
                   const isSelected = t.id === selectedTheaterId;
                   return (
@@ -281,46 +284,46 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                         if (guestCount < t.baseCapacity) setGuestCount(t.baseCapacity);
                         if (guestCount > t.maxCapacity) setGuestCount(t.maxCapacity);
                       }}
-                      className={`p-3 rounded-lg text-left border transition-colors focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none ${
+                      className={`p-3.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                         isSelected
-                          ? "bg-red-50/80 border-brand-red text-slate-900 ring-1 ring-brand-red/30"
-                          : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+                          ? "bg-white/15 border-amber-400 text-white ring-1 ring-amber-400/40"
+                          : "bg-white/5 border-white/5 text-gray-300 hover:bg-white/10"
                       }`}
                     >
-                      <div className="text-xs font-bold text-slate-900">{t.name}</div>
-                      <div className="text-xs text-brand-red font-semibold mt-0.5">₹{t.basePrice}</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">{t.capacityText}</div>
+                      <div className="text-xs font-bold">{t.name}</div>
+                      <div className="text-[11px] text-amber-400 font-semibold mt-1">₹{t.basePrice} (3 hrs)</div>
+                      <div className="text-[10px] text-gray-400 mt-0.5">{t.capacityText}</div>
                     </button>
                   );
                 })}
               </div>
 
               {/* Guest counter */}
-              <div className="flex items-center justify-between p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Number of Guests</div>
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs font-bold text-white">Number of Guests:</div>
+                  <div className="text-[11px] text-gray-400">
                     Base price includes {currentTheater.baseCapacity} people. Extra: ₹{currentTheater.extraPersonPrice}/person.
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
                     aria-label="Decrease guest count"
                     onClick={() => setGuestCount(Math.max(currentTheater.baseCapacity, guestCount - 1))}
-                    className="w-8 h-8 rounded-md bg-white border border-slate-300 text-slate-800 font-bold flex items-center justify-center hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                    className="w-8 h-8 rounded-lg bg-white/10 text-white font-bold flex items-center justify-center hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
                   >
                     -
                   </button>
-                  <span className="text-sm font-bold text-slate-900 w-8 text-center" aria-live="polite">
+                  <span className="text-base font-extrabold text-white w-6 text-center" aria-live="polite">
                     {guestCount}
                   </span>
                   <button
                     type="button"
                     aria-label="Increase guest count"
                     onClick={() => setGuestCount(Math.min(currentTheater.maxCapacity, guestCount + 1))}
-                    className="w-8 h-8 rounded-md bg-white border border-slate-300 text-slate-800 font-bold flex items-center justify-center hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                    className="w-8 h-8 rounded-lg bg-white/10 text-white font-bold flex items-center justify-center hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
                   >
                     +
                   </button>
@@ -329,37 +332,41 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 3: Occasion & Add-ons */}
-            <fieldset className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
-              <legend className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-800 px-1 mb-4">
-                <Sparkles className="w-4 h-4 text-amber-700" aria-hidden="true" />
-                <span>Step 3: Occasion &amp; Add-ons</span>
+            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
+              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+                <Sparkles className="w-4 h-4" aria-hidden="true" />
+                <span>Step 3: Occasion &amp; Custom Add-ons</span>
               </legend>
 
-              <div className="mb-4">
-                <label htmlFor="booking-occasion" className="text-xs font-medium text-slate-700 block mb-1.5">
-                  Select Occasion <span className="text-brand-red" aria-hidden="true">*</span>
+              <div className="mb-5">
+                <label htmlFor="booking-occasion" className="text-xs font-semibold text-gray-300 block mb-2">
+                  Occasion Type:
                 </label>
                 <select
                   id="booking-occasion"
                   value={selectedOccasion}
                   onChange={(e) => setSelectedOccasion(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
                 >
                   {OCCASIONS.map((occ) => (
-                    <option key={occ.id} value={occ.title}>
+                    <option key={occ.id} value={occ.title} className="bg-[#0F121C]">
                       {occ.title}
                     </option>
                   ))}
-                  <option value="Casual Movie Binge / Date">Casual Movie Binge / Date</option>
-                  <option value="Other Private Gathering">Other Private Gathering</option>
+                  <option value="Casual Movie Binge / Date" className="bg-[#0F121C]">
+                    Casual Movie Binge / Date
+                  </option>
+                  <option value="Other Private Gathering" className="bg-[#0F121C]">
+                    Other Private Gathering
+                  </option>
                 </select>
               </div>
 
               <div>
-                <div className="text-xs font-medium text-slate-700 block mb-2">
-                  Select Add-ons (Optional):
+                <div className="text-xs font-semibold text-gray-300 block mb-2">
+                  Select Add-ons (Cakes, Fog Entry, Decor, Photoshoot):
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-60 overflow-y-auto pr-1">
                   {ADDONS.map((addon) => {
                     const isSelected = !!selectedAddonIds[addon.id];
                     return (
@@ -369,25 +376,25 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                         role="checkbox"
                         aria-checked={isSelected}
                         onClick={() => toggleAddon(addon.id)}
-                        className={`p-2.5 rounded-lg border text-left transition-colors flex items-center justify-between gap-2 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none ${
+                        className={`p-3 rounded-xl border text-left cursor-pointer transition-all flex items-center justify-between gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                           isSelected
-                            ? "bg-red-50/80 border-brand-red text-slate-900"
-                            : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+                            ? "bg-white/15 border-amber-400/60 text-white"
+                            : "bg-white/5 border-white/5 text-gray-400 hover:text-white"
                         }`}
                       >
                         <div className="flex items-center gap-2 truncate">
                           <div
                             className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
                               isSelected
-                                ? "bg-brand-red border-brand-red text-white"
-                                : "border-slate-300 bg-white"
+                                ? "bg-amber-500 border-amber-500 text-slate-950 font-bold"
+                                : "border-gray-600 bg-white/5"
                             }`}
                           >
                             {isSelected && <Check className="w-3 h-3 stroke-[3]" aria-hidden="true" />}
                           </div>
                           <span className="text-xs font-medium truncate">{addon.name}</span>
                         </div>
-                        <span className="text-xs font-semibold text-slate-800 shrink-0">
+                        <span className="text-xs font-bold text-gray-200 shrink-0">
                           +₹{addon.price}
                         </span>
                       </button>
@@ -398,16 +405,16 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 4: Contact Details */}
-            <fieldset className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
-              <legend className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-800 px-1 mb-4">
-                <ShieldCheck className="w-4 h-4 text-amber-700" aria-hidden="true" />
-                <span>Step 4: Contact &amp; Guest Details</span>
+            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
+              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+                <ShieldCheck className="w-4 h-4" aria-hidden="true" />
+                <span>Step 4: Your Contact &amp; Guest Details</span>
               </legend>
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="customer-name" className="text-xs font-medium text-slate-700 block mb-1.5">
-                    Full Name <span className="text-brand-red" aria-hidden="true">*</span>
+                  <label htmlFor="customer-name" className="text-xs font-semibold text-gray-300 block mb-1.5">
+                    Full Name *
                   </label>
                   <input
                     id="customer-name"
@@ -417,14 +424,14 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                     placeholder="e.g. Rahul Patil"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none placeholder:text-slate-400"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="customer-phone" className="text-xs font-medium text-slate-700 block mb-1.5">
-                      Mobile / WhatsApp Number <span className="text-brand-red" aria-hidden="true">*</span>
+                    <label htmlFor="customer-phone" className="text-xs font-semibold text-gray-300 block mb-1.5">
+                      Mobile / WhatsApp Number *
                     </label>
                     <input
                       id="customer-phone"
@@ -435,15 +442,15 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                       placeholder="e.g. 9876543210"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none placeholder:text-slate-400"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                     />
-                    <div id="phone-help" className="text-[11px] text-slate-500 mt-1">
+                    <div id="phone-help" className="text-[10px] text-gray-400 mt-1">
                       We send your slot confirmation directly on WhatsApp.
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="customer-email" className="text-xs font-medium text-slate-700 block mb-1.5">
+                    <label htmlFor="customer-email" className="text-xs font-semibold text-gray-300 block mb-1.5">
                       Email Address (Optional)
                     </label>
                     <input
@@ -452,13 +459,13 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                       placeholder="rahul@example.com"
                       value={customerEmail}
                       onChange={(e) => setCustomerEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none placeholder:text-slate-400"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="special-requests" className="text-xs font-medium text-slate-700 block mb-1.5">
+                  <label htmlFor="special-requests" className="text-xs font-semibold text-gray-300 block mb-1.5">
                     Special Requests / Personal Video / Name on Screen
                   </label>
                   <textarea
@@ -467,14 +474,14 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                     placeholder="e.g. 'Playing surprise video clip at 7 PM', 'Name on backdrop: Sneha'"
                     value={specialRequests}
                     onChange={(e) => setSpecialRequests(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none placeholder:text-slate-400"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                   />
                 </div>
               </div>
 
               {submitError && (
-                <div role="alert" className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 flex items-center gap-2 text-xs text-red-800">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-brand-red" aria-hidden="true" />
+                <div role="alert" className="mt-4 p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-2 text-xs text-red-300">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" aria-hidden="true" />
                   <span>{submitError}</span>
                 </div>
               )}
@@ -482,12 +489,13 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-6 w-full py-3.5 rounded-lg font-semibold text-sm text-white bg-brand-red hover:bg-red-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                className={`mt-6 w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none ${config.buttonClass}`}
               >
                 {isSubmitting ? (
-                  <span>Saving Booking to Google Sheets...</span>
+                  <span>Recording Booking to Google Sheets...</span>
                 ) : (
                   <>
+                    <Sparkles className="w-4 h-4" aria-hidden="true" />
                     <span>Confirm &amp; Lock Slot (Advance Token ₹{advancePayable})</span>
                     <ChevronRight className="w-4 h-4" aria-hidden="true" />
                   </>
@@ -496,70 +504,70 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
           </form>
 
-          {/* Order Summary */}
-          <div className="lg:col-span-5 sticky top-24 space-y-4">
-            <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-4">
+          {/* Sticky Order Summary */}
+          <div className="lg:col-span-5 sticky top-28 space-y-4">
+            <div className="rounded-3xl bg-[#111420] border-2 border-white/15 p-6 sm:p-7 shadow-2xl relative">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-amber-800">
-                    Booking Overview
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                    Booking Summary
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">
+                  <h3 className="text-xl font-extrabold text-white">
                     House of OTT (Ravet)
                   </h3>
                 </div>
-                <span className="px-2.5 py-1 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/10 text-gray-200 border border-white/15">
                   3 Hours Private
                 </span>
               </div>
 
-              {/* Specs */}
-              <div className="space-y-2 text-xs text-slate-600 pb-4 border-b border-slate-200 mb-4">
+              {/* Specs preview */}
+              <div className="space-y-2.5 text-xs text-gray-300 pb-4 border-b border-white/10 mb-4">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Theater Room:</span>
-                  <span className="font-semibold text-slate-900">{currentTheater.name}</span>
+                  <span className="text-gray-400">Theater Room:</span>
+                  <span className="font-semibold text-white">{currentTheater.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Date:</span>
-                  <span className="font-semibold text-slate-900">{eventDate}</span>
+                  <span className="text-gray-400">Date:</span>
+                  <span className="font-semibold text-white">{eventDate}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Slot Time:</span>
-                  <span className="font-semibold text-brand-red">{currentSlot.timeRange}</span>
+                  <span className="text-gray-400">Slot Time:</span>
+                  <span className="font-semibold text-amber-400">{currentSlot.timeRange}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Guests:</span>
-                  <span className="font-semibold text-slate-900">{guestCount} People</span>
+                  <span className="text-gray-400">Guests:</span>
+                  <span className="font-semibold text-white">{guestCount} People</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Occasion:</span>
-                  <span className="font-semibold text-slate-900">{selectedOccasion}</span>
+                  <span className="text-gray-400">Occasion:</span>
+                  <span className="font-semibold text-white">{selectedOccasion}</span>
                 </div>
               </div>
 
               {/* Line items */}
-              <div className="space-y-2 text-xs mb-5">
-                <div className="flex justify-between text-slate-600">
+              <div className="space-y-2 text-xs mb-6">
+                <div className="flex justify-between text-gray-300">
                   <span>Base Rent (3 hrs, {currentTheater.baseCapacity} pax)</span>
-                  <span className="font-semibold text-slate-900">₹{basePrice}</span>
+                  <span className="font-semibold text-white">₹{basePrice}</span>
                 </div>
 
                 {extraGuestsCount > 0 && (
-                  <div className="flex justify-between text-slate-600">
+                  <div className="flex justify-between text-gray-300">
                     <span>
                       {extraGuestsCount} Extra Guest{extraGuestsCount > 1 ? "s" : ""}
                     </span>
-                    <span className="font-semibold text-slate-900">₹{extraGuestsPrice}</span>
+                    <span className="font-semibold text-white">₹{extraGuestsPrice}</span>
                   </div>
                 )}
 
                 {addonsList.length > 0 && (
-                  <div className="pt-2 border-t border-slate-200 space-y-1">
-                    <div className="text-xs font-semibold text-slate-500">Add-ons:</div>
+                  <div className="pt-2 border-t border-white/5 space-y-1">
+                    <div className="text-[11px] font-bold text-gray-400">Add-ons:</div>
                     {addonsList.map((a) => (
-                      <div key={a.id} className="flex justify-between text-slate-600 pl-2">
+                      <div key={a.id} className="flex justify-between text-gray-300 pl-2">
                         <span className="truncate pr-2">• {a.name}</span>
-                        <span className="font-semibold text-slate-900 shrink-0">₹{a.price * a.quantity}</span>
+                        <span className="font-semibold text-white shrink-0">₹{a.price * a.quantity}</span>
                       </div>
                     ))}
                   </div>
@@ -567,45 +575,45 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
               </div>
 
               {/* Total Card */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-4">
-                <div className="flex items-baseline justify-between mb-0.5">
-                  <span className="text-xs text-slate-500 font-semibold uppercase">Total Event Cost</span>
-                  <span className="text-2xl font-bold text-slate-900">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 mb-4">
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-xs text-gray-400 uppercase font-semibold">Total Event Cost</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
                     ₹{totalPrice}
                   </span>
                 </div>
-                <div className="text-xs text-slate-500">
+                <div className="text-[11px] text-gray-400">
                   Zero convenience fees. All taxes included.
                 </div>
               </div>
 
               {/* Advance Pay Highlight */}
-              <div className="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs mb-3">
-                <div className="flex items-center justify-between font-semibold text-emerald-900 mb-0.5">
+              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs">
+                <div className="flex items-center justify-between font-bold text-emerald-400 mb-1">
                   <span>Advance Token:</span>
-                  <span className="text-sm font-bold">₹{advancePayable}</span>
+                  <span className="text-sm">₹{advancePayable}</span>
                 </div>
-                <div className="flex items-center justify-between text-emerald-800">
+                <div className="flex items-center justify-between text-[11px] text-gray-300">
                   <span>Pay Balance at Ravet venue:</span>
                   <span>₹{balanceAtVenue}</span>
                 </div>
               </div>
 
-              <div className="pt-2 text-xs text-slate-500 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-brand-red shrink-0" aria-hidden="true" />
+              <div className="mt-4 pt-3 border-t border-white/5 text-[11px] text-gray-400 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" aria-hidden="true" />
                 <span>Sector 29, Prime Ville, Ravet, Pune 412101</span>
               </div>
             </div>
 
-            {/* Assistance card */}
-            <div className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs flex items-center justify-between shadow-xs">
+            {/* Assistance Box */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-amber-700" aria-hidden="true" />
-                <span className="text-slate-600">Need instant date check?</span>
+                <Phone className="w-4 h-4 text-amber-400" aria-hidden="true" />
+                <span className="text-gray-300">Need instant date check?</span>
               </div>
               <a
                 href="tel:+919168530789"
-                className="font-bold text-slate-900 hover:text-brand-red focus-visible:ring-2 focus-visible:ring-slate-900 focus:outline-none rounded px-1"
+                className="font-bold text-white hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none rounded px-1"
               >
                 +91 91685 30789
               </a>
@@ -621,52 +629,57 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
           aria-modal="true" 
           aria-labelledby="booking-success-title"
           aria-describedby="booking-success-desc"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
         >
-          <div className="w-full max-w-lg rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xl relative text-left">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-4 text-emerald-700">
-              <CheckCircle className="w-6 h-6" aria-hidden="true" />
+          <div className="w-full max-w-lg rounded-3xl bg-[#12151e] border-2 border-white/20 p-6 sm:p-8 shadow-2xl relative text-left">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-4 text-emerald-400">
+              <CheckCircle className="w-8 h-8" aria-hidden="true" />
             </div>
 
-            <div className="text-xs font-semibold uppercase tracking-wide text-amber-800 mb-1">
-              Reservation Logged
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
+              <PartyPopper className="w-4 h-4" aria-hidden="true" />
+              <span>Booking Request Received!</span>
             </div>
 
-            <h3 id="booking-success-title" className="text-xl font-bold text-slate-900 mb-2">
+            <h3 id="booking-success-title" className="text-2xl font-extrabold text-white mb-2">
               Slot Reserved: {bookingSuccess.bookingId}
             </h3>
 
-            <p id="booking-success-desc" className="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
-              Thank you, <strong className="text-slate-900">{bookingSuccess.customerName}</strong>. 
+            <p id="booking-success-desc" className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
+              Thank you, <strong className="text-white">{bookingSuccess.customerName}</strong>! 
               Your booking has been saved directly to our Google Sheet and sent to our team in Ravet.
             </p>
 
             {/* Summary Details */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs mb-5">
+            <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 text-xs mb-5">
               <div className="flex justify-between">
-                <span className="text-slate-500">Theater:</span>
-                <span className="font-semibold text-slate-900">{bookingSuccess.theaterName}</span>
+                <span className="text-gray-400">Theater:</span>
+                <span className="font-semibold text-white">{bookingSuccess.theaterName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Date &amp; Slot:</span>
-                <span className="font-semibold text-brand-red">
+                <span className="text-gray-400">Date &amp; Slot:</span>
+                <span className="font-semibold text-amber-400">
                   {bookingSuccess.eventDate} ({bookingSuccess.slotTime})
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Guests:</span>
-                <span className="font-semibold text-slate-900">{bookingSuccess.guestCount} People</span>
+                <span className="text-gray-400">Guests:</span>
+                <span className="font-semibold text-white">{bookingSuccess.guestCount} People</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Total / Advance:</span>
-                <span className="font-semibold text-slate-900">
+                <span className="text-gray-400">Total / Advance:</span>
+                <span className="font-semibold text-white">
                   ₹{bookingSuccess.totalPrice} / ₹{bookingSuccess.advancePayable} token
                 </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Venue:</span>
+                <span className="font-semibold text-white">Sector 29, Ravet, Pune</span>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               <a
                 href={
                   whatsAppDirectUrl ||
@@ -674,26 +687,26 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 rounded-lg font-semibold text-xs tracking-wide text-white bg-emerald-700 hover:bg-emerald-800 transition-colors flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                className="w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-500 shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                <span>Send Confirmation on WhatsApp</span>
+                <span>Send Confirmation on WhatsApp Now</span>
               </a>
 
               <a
                 href="https://share.google/6g19LyHLut3CkEDbk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-lg font-medium text-xs text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none"
+                className="w-full py-3 rounded-xl font-semibold text-xs text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
               >
-                <MapPin className="w-3.5 h-3.5 text-brand-red" aria-hidden="true" />
+                <MapPin className="w-3.5 h-3.5 text-rose-400" aria-hidden="true" />
                 <span>Open Ravet Location on Google Maps</span>
               </a>
 
               <button
                 type="button"
                 onClick={() => setBookingSuccess(null)}
-                className="w-full py-2 text-center text-xs text-slate-500 hover:text-slate-800 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:outline-none rounded"
+                className="w-full py-2.5 text-center text-xs text-gray-400 hover:text-white focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none rounded"
               >
                 Close Window
               </button>

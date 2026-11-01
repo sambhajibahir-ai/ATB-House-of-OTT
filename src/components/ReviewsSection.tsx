@@ -6,87 +6,89 @@ import { Star, CheckCircle, Quote } from "lucide-react";
 
 export function ReviewsSection() {
   return (
-    <section id="reviews" aria-labelledby="reviews-heading" className="py-20 relative bg-white border-b border-slate-200">
+    <section id="reviews" aria-labelledby="reviews-heading" className="py-20 relative bg-[#07080B] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
-            Customer Testimonials
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">
+            <Star className="w-3.5 h-3.5 fill-amber-400" aria-hidden="true" />
+            <span>580+ Verified 5-Star Reviews</span>
           </div>
-          <h2 id="reviews-heading" className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Ratings &amp; Reviews
+          <h2 id="reviews-heading" className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Loved by Pune &amp; PCMC
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
-            Read authentic reviews from guests across Ravet, Wakad, Hinjawadi, and Pune.
+          <p className="text-base sm:text-lg text-gray-300">
+            See why couples, families, and party planners rate House of OTT higher 
+            than any other private screening theater in Pune.
           </p>
         </div>
 
         {/* Rating summary bar */}
-        <div className="max-w-md mx-auto mb-10 p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-around text-center shadow-xs">
+        <div className="max-w-xl mx-auto mb-12 p-5 rounded-2xl bg-[#111420] border border-white/10 flex items-center justify-around text-center shadow-xl">
           <div>
-            <div className="text-2xl font-bold text-slate-900 flex items-center justify-center gap-1">
+            <div className="text-3xl font-extrabold text-white flex items-center justify-center gap-1">
               <span>4.9</span>
-              <Star className="w-5 h-5 fill-amber-500 text-amber-500" aria-hidden="true" />
+              <Star className="w-5 h-5 fill-amber-400 text-amber-400" aria-hidden="true" />
             </div>
-            <div className="text-xs text-slate-500 mt-0.5">Google Rating</div>
+            <div className="text-[11px] text-gray-400 mt-0.5">Google Rating</div>
           </div>
-          <div className="h-7 w-px bg-slate-200" aria-hidden="true" />
+          <div className="h-8 w-px bg-white/10" aria-hidden="true" />
           <div>
-            <div className="text-2xl font-bold text-slate-900">580+</div>
-            <div className="text-xs text-slate-500 mt-0.5">Reviews</div>
+            <div className="text-3xl font-extrabold text-white">580+</div>
+            <div className="text-[11px] text-gray-400 mt-0.5">Public Reviews</div>
           </div>
-          <div className="h-7 w-px bg-slate-200" aria-hidden="true" />
+          <div className="h-8 w-px bg-white/10" aria-hidden="true" />
           <div>
-            <div className="text-2xl font-bold text-emerald-700">100%</div>
-            <div className="text-xs text-slate-500 mt-0.5">Private Rooms</div>
+            <div className="text-3xl font-extrabold text-emerald-400">100%</div>
+            <div className="text-[11px] text-gray-400 mt-0.5">Privacy Verified</div>
           </div>
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {REVIEWS.map((review) => (
             <div
               key={review.id}
-              className="rounded-xl bg-white border border-slate-200 p-5 flex flex-col justify-between shadow-xs hover:border-slate-300 transition-all"
+              className="rounded-2xl bg-[#10131E] border border-white/10 p-6 flex flex-col justify-between hover:border-amber-400/40 transition-all shadow-lg relative group"
             >
               <div>
-                {/* Header: Rating & Occasion */}
-                <div className="flex items-center justify-between mb-3">
+                {/* Header: Stars & Occasion */}
+                <div className="flex items-center justify-between mb-4">
                   <div 
                     className="flex items-center gap-1"
                     role="img"
                     aria-label={`${review.rating} out of 5 stars`}
                   >
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" aria-hidden="true" />
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-semibold text-slate-700 px-2 py-0.5 rounded bg-slate-100 border border-slate-200">
+                  <span className="text-[10px] font-semibold text-amber-300 px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/20">
                     {review.occasion}
                   </span>
                 </div>
 
-                <Quote className="w-5 h-5 text-slate-300 mb-2" aria-hidden="true" />
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed mb-5">
+                <Quote className="w-6 h-6 text-white/10 mb-2" aria-hidden="true" />
+                <p className="text-xs sm:text-sm text-gray-200 leading-relaxed mb-6">
                   &ldquo;{review.comment}&rdquo;
                 </p>
               </div>
 
-              {/* Author & Theater */}
-              <div className="pt-3.5 border-t border-slate-150 flex items-center justify-between text-xs">
+              {/* Author & Theater Tag */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs">
                 <div>
-                  <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                  <div className="font-bold text-white flex items-center gap-1.5">
                     <span>{review.name}</span>
                     {review.verified && (
                       <span title="Verified Customer" className="inline-flex items-center">
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" aria-label="Verified Customer" />
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" aria-label="Verified Customer" />
                       </span>
                     )}
                   </div>
-                  <div className="text-[11px] text-slate-500">{review.date}</div>
+                  <div className="text-[11px] text-gray-500">{review.date}</div>
                 </div>
 
-                <span className="text-xs text-slate-600 font-medium">
+                <span className="text-[11px] text-gray-400 font-medium">
                   {review.theaterName}
                 </span>
               </div>
