@@ -2,52 +2,64 @@
 
 import React from "react";
 import { useTheme } from "@/context/ThemeContext";
-import { MapPin, Navigation, Phone, MessageCircle, Clock, Car, Shield } from "lucide-react";
+import { MapPin, Navigation, Phone, MessageCircle, Clock, Car, Shield, Compass, Star } from "lucide-react";
+
+interface DirectionRoute {
+  id: string;
+  from: string;
+  time: string;
+  distance: string;
+}
 
 export function LocationMapSection() {
   const { config } = useTheme();
 
-  const directions = [
-    { from: "Akurdi Railway Station", time: "5 Mins", distance: "2.4 km" },
-    { from: "Kiwale & Punawale", time: "6 Mins", distance: "3.1 km" },
-    { from: "Nigdi Pradhikaran", time: "8 Mins", distance: "4.2 km" },
-    { from: "Wakad Bridge / Bhumkar Chowk", time: "10 Mins", distance: "5.8 km" },
-    { from: "Hinjawadi IT Park (Phase 1)", time: "12 Mins", distance: "7.5 km" },
-    { from: "Chinchwad & Pimple Saudagar", time: "14 Mins", distance: "8.0 km" },
+  const routes: DirectionRoute[] = [
+    { id: "wakad", from: "Wakad / Bhumkar Chowk", time: "10 Mins", distance: "5.8 km" },
+    { id: "hinjawadi", from: "Hinjawadi IT Park", time: "12 Mins", distance: "7.5 km" },
+    { id: "akurdi", from: "Akurdi / Pradhikaran", time: "5 Mins", distance: "2.4 km" },
+    { id: "kiwale", from: "Kiwale / Mukai Chowk", time: "5 Mins", distance: "2.8 km" },
+    { id: "pimple-saudagar", from: "Pimple Saudagar", time: "15 Mins", distance: "8.5 km" },
+    { id: "nigdi", from: "Nigdi / Chinchwad", time: "8 Mins", distance: "4.2 km" }
   ];
 
   return (
-    <section id="location" aria-labelledby="location-heading" className="py-20 relative bg-[#090C12] border-b border-white/10">
+    <section id="location" aria-labelledby="location-heading" className="py-14 sm:py-20 relative bg-[#06070A] border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-wider mb-3 text-amber-400 shadow-cinema-soft">
             <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Prime Venue in PCMC Pune</span>
+            <span>Prime Venue in Ravet</span>
           </div>
-          <h2 id="location-heading" className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <h2 id="location-heading" className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
             Visit Us in Ravet, Pune
           </h2>
-          <p className="text-base sm:text-lg text-gray-300">
-            Conveniently situated in Sector 29, Ravet, just minutes away from major IT hubs, 
-            highways, and residential neighborhoods of Pune &amp; PCMC.
+          <p className="text-sm text-gray-300">
+            Sector 29, Ravet — minutes away from Hinjawadi IT Park, Wakad, and PCMC.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Location Info Card */}
-          <div className="lg:col-span-5 rounded-3xl bg-[#111420] border border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-2xl">
+          {/* Location Info Card with Layered Shadow */}
+          <div className="lg:col-span-5 rounded-3xl bg-[#0D101C] border border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-cinema-soft ring-1 ring-white/5">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">
-                <Navigation className="w-4 h-4" aria-hidden="true" />
-                <span>Venue Address &amp; Directions</span>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
+                  <Navigation className="w-4 h-4" aria-hidden="true" />
+                  <span>Venue Address &amp; Directions</span>
+                </div>
+                <div className="flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-400/10 px-2.5 py-1 rounded-full border border-amber-400/20">
+                  <Star className="w-3.5 h-3.5 fill-amber-400" />
+                  <span>4.9★ (580+ Reviews)</span>
+                </div>
               </div>
 
-              <h3 className="text-2xl font-extrabold text-white mb-3">
+              <h3 className="text-2xl font-extrabold text-white mb-2">
                 House of OTT
               </h3>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/5 mb-6 text-xs text-gray-300 space-y-2">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5 mb-6 text-xs text-gray-300 space-y-1.5 shadow-inner">
                 <div className="font-semibold text-white">
                   S.No. 215, Prime Ville, Plot No. 4,
                 </div>
@@ -59,7 +71,7 @@ export function LocationMapSection() {
               <div className="space-y-3 text-xs mb-6">
                 <div className="flex items-center gap-2.5 text-gray-300">
                   <Clock className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
-                  <span><strong>Timings:</strong> 10:00 AM – 03:00 AM (Open 7 Days a Week)</span>
+                  <span><strong>Timings:</strong> 11:00 AM – 03:00 AM (Open 7 Days a Week)</span>
                 </div>
                 <div className="flex items-center gap-2.5 text-gray-300">
                   <Car className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
@@ -71,16 +83,20 @@ export function LocationMapSection() {
                 </div>
               </div>
 
-              {/* Nearby Driving Distance */}
+              {/* Interactive Travel Time Selector */}
               <div className="mb-6">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">
-                  Driving Distances:
+                <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2.5 flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Driving Times:</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  {directions.map((d, idx) => (
-                    <div key={idx} className="p-2.5 rounded-xl bg-white/5 border border-white/5">
-                      <div className="font-semibold text-white truncate">{d.from}</div>
-                      <div className="text-gray-400">{d.time} ({d.distance})</div>
+                  {routes.map((r) => (
+                    <div
+                      key={r.id}
+                      className="p-2.5 rounded-xl bg-white/5 border border-white/5 text-left"
+                    >
+                      <div className="text-gray-300 font-medium truncate">{r.from.split("/")[0]}</div>
+                      <div className="text-amber-400 font-bold">{r.time} ({r.distance})</div>
                     </div>
                   ))}
                 </div>
@@ -93,7 +109,7 @@ export function LocationMapSection() {
                 href="https://share.google/6g19LyHLut3CkEDbk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none ${config.buttonClass}`}
+                className={`w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg ${config.buttonClass}`}
               >
                 <MapPin className="w-4 h-4" aria-hidden="true" />
                 <span>Open in Google Maps App</span>
@@ -102,7 +118,7 @@ export function LocationMapSection() {
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href="tel:+919168530789"
-                  className="py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 border border-white/10 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
+                  className="py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 border border-white/10 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-cinema-soft"
                 >
                   <Phone className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
                   <span>+91 91685 30789</span>
@@ -111,7 +127,7 @@ export function LocationMapSection() {
                   href="https://wa.me/919168530789?text=Hi%20House%20of%20OTT%20Ravet!%20Please%20share%20your%20exact%20location%20and%20directions."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none"
+                  className="py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-cinema-soft"
                 >
                   <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Get Live Location</span>
@@ -120,8 +136,8 @@ export function LocationMapSection() {
             </div>
           </div>
 
-          {/* Embedded Google Map */}
-          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-[#111420] border border-white/10 shadow-2xl relative min-h-[420px]">
+          {/* Embedded Google Map with Ambient Drop Shadow */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-[#0D101C] border border-white/10 shadow-cinema-soft relative min-h-[420px] ring-1 ring-white/5">
             <iframe
               title="House of OTT Ravet Location Map"
               src="https://maps.google.com/maps?q=18.6534,73.7432+(House%20of%20OTT%20Ravet)&t=&z=15&ie=UTF8&iwloc=B&output=embed"

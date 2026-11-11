@@ -25,9 +25,20 @@ import {
 interface BookingWizardProps {
   initialTheaterId?: string;
   initialOccasion?: string;
+  initialDate?: string;
+  initialSlotId?: string;
+  initialGuests?: number;
+  initialAddonIds?: string[];
 }
 
-export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWizardProps) {
+export function BookingWizard({
+  initialTheaterId,
+  initialOccasion,
+  initialDate,
+  initialSlotId,
+  initialGuests,
+  initialAddonIds
+}: BookingWizardProps) {
   const { config } = useTheme();
 
   // Form State
@@ -40,9 +51,9 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
     return d.toISOString().split("T")[0];
   };
 
-  const [eventDate, setEventDate] = useState<string>(getTodayString());
-  const [selectedSlotId, setSelectedSlotId] = useState<string>("slot-evening");
-  const [guestCount, setGuestCount] = useState<number>(2);
+  const [eventDate, setEventDate] = useState<string>(initialDate || getTodayString());
+  const [selectedSlotId, setSelectedSlotId] = useState<string>(initialSlotId || "slot-evening");
+  const [guestCount, setGuestCount] = useState<number>(initialGuests || 2);
   const [selectedOccasion, setSelectedOccasion] = useState<string>(
     initialOccasion || "Birthday Celebrations"
   );
@@ -70,6 +81,32 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
   useEffect(() => {
     if (initialOccasion) setSelectedOccasion(initialOccasion);
   }, [initialOccasion]);
+
+  useEffect(() => {
+    if (initialDate) setEventDate(initialDate);
+  }, [initialDate]);
+
+  useEffect(() => {
+    if (initialSlotId) setSelectedSlotId(initialSlotId);
+  }, [initialSlotId]);
+
+  useEffect(() => {
+    if (initialGuests) setGuestCount(initialGuests);
+  }, [initialGuests]);
+
+  useEffect(() => {
+    if (initialAddonIds && initialAddonIds.length > 0) {
+      const map: { [id: string]: number } = {};
+      initialAddonIds.forEach((id) => {
+        if (id === "fog-entry") map["effect-fog-entry"] = 1;
+        else if (id === "truffle-cake") map["cake-choc-truffle"] = 1;
+        else if (id === "pyro-sparklers") map["effect-cold-pyro"] = 1;
+        else if (id === "surprise-video") map["effect-screen-slideshow"] = 1;
+        else map[id] = 1;
+      });
+      setSelectedAddonIds(map);
+    }
+  }, [initialAddonIds]);
 
   const currentTheater = THEATERS.find((t) => t.id === selectedTheaterId) || THEATERS[0];
   const currentSlot = TIME_SLOTS.find((s) => s.id === selectedSlotId) || TIME_SLOTS[0];
@@ -177,19 +214,21 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
 
   return (
     <section id="book" aria-labelledby="booking-heading" className="py-20 relative bg-[#07080B] border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Dynamic ambient color glow according to theme */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold uppercase tracking-wider mb-3 text-amber-400 shadow-cinema-soft">
             <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Instant Online Reservation • Ravet Venue</span>
+            <span>Instant Reservation</span>
           </div>
-          <h2 id="booking-heading" className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Reserve Your Private Theater Slot
+          <h2 id="booking-heading" className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+            Reserve Your Private Theater
           </h2>
-          <p className="text-base sm:text-lg text-gray-300">
-            Lock in your preferred 3-hour private slot with an advance token of only ₹750. 
-            All bookings sync directly to Google Sheets and our WhatsApp desk.
+          <p className="text-sm text-gray-300">
+            Lock your 3-hour slot with a ₹750 token. Balance payable at the venue.
           </p>
         </div>
 
@@ -198,8 +237,8 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
           {/* Main Form */}
           <form onSubmit={handleBookingSubmit} className="lg:col-span-7 space-y-6" noValidate>
             {/* Step 1: Date & Time Slot */}
-            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
-              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+              <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 <span>Step 1: Choose Date &amp; 3-Hour Slot</span>
               </legend>
@@ -217,7 +256,7 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                     onChange={(e) => setEventDate(e.target.value)}
                     required
                     aria-required="true"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -229,7 +268,7 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                     id="booking-slot-select"
                     value={selectedSlotId}
                     onChange={(e) => setSelectedSlotId(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
                   >
                     {TIME_SLOTS.map((slot) => (
                       <option key={slot.id} value={slot.id} className="bg-[#0F121C]">
@@ -252,8 +291,8 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                       onClick={() => setSelectedSlotId(slot.id)}
                       className={`p-2.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                         isSelected
-                          ? "bg-white/15 border-amber-400 text-white ring-1 ring-amber-400/40"
-                          : "bg-white/5 border-white/5 text-gray-400 hover:text-white"
+                          ? `bg-white/15 ${config.accentBorder} text-white ring-1 ring-white/20 shadow-ambient-glow`
+                          : "bg-white/5 border-white/5 text-gray-400 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <div className="text-xs font-bold truncate">{slot.label}</div>
@@ -265,8 +304,8 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 2: Theater & Guests */}
-            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
-              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+              <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Users className="w-4 h-4" aria-hidden="true" />
                 <span>Step 2: Select Theater &amp; Guest Count</span>
               </legend>
@@ -286,12 +325,12 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                       }}
                       className={`p-3.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                         isSelected
-                          ? "bg-white/15 border-amber-400 text-white ring-1 ring-amber-400/40"
+                          ? `bg-white/15 ${config.accentBorder} text-white ring-1 ring-white/20 shadow-ambient-glow`
                           : "bg-white/5 border-white/5 text-gray-300 hover:bg-white/10"
                       }`}
                     >
                       <div className="text-xs font-bold">{t.name}</div>
-                      <div className="text-[11px] text-amber-400 font-semibold mt-1">₹{t.basePrice} (3 hrs)</div>
+                      <div className={`text-[11px] ${config.accentText} font-semibold mt-1`}>₹{t.basePrice} (3 hrs)</div>
                       <div className="text-[10px] text-gray-400 mt-0.5">{t.capacityText}</div>
                     </button>
                   );
@@ -332,8 +371,8 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 3: Occasion & Add-ons */}
-            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
-              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+              <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Sparkles className="w-4 h-4" aria-hidden="true" />
                 <span>Step 3: Occasion &amp; Custom Add-ons</span>
               </legend>
@@ -378,15 +417,15 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
                         onClick={() => toggleAddon(addon.id)}
                         className={`p-3 rounded-xl border text-left cursor-pointer transition-all flex items-center justify-between gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                           isSelected
-                            ? "bg-white/15 border-amber-400/60 text-white"
-                            : "bg-white/5 border-white/5 text-gray-400 hover:text-white"
+                            ? `bg-white/15 ${config.accentBorder} text-white ring-1 ring-white/10`
+                            : "bg-white/5 border-white/5 text-gray-400 hover:text-white hover:bg-white/10"
                         }`}
                       >
                         <div className="flex items-center gap-2 truncate">
                           <div
                             className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
                               isSelected
-                                ? "bg-amber-500 border-amber-500 text-slate-950 font-bold"
+                                ? `${config.accentBg} ${config.accentBorder} text-slate-950 font-bold`
                                 : "border-gray-600 bg-white/5"
                             }`}
                           >
@@ -405,8 +444,8 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </fieldset>
 
             {/* Step 4: Contact Details */}
-            <fieldset className="p-6 rounded-2xl bg-[#111420] border border-white/10 shadow-xl">
-              <legend className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 px-1 mb-4">
+            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+              <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <ShieldCheck className="w-4 h-4" aria-hidden="true" />
                 <span>Step 4: Your Contact &amp; Guest Details</span>
               </legend>
@@ -506,10 +545,10 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
 
           {/* Sticky Order Summary */}
           <div className="lg:col-span-5 sticky top-28 space-y-4">
-            <div className="rounded-3xl bg-[#111420] border-2 border-white/15 p-6 sm:p-7 shadow-2xl relative">
+            <div className="rounded-3xl bg-gradient-to-b from-[#111524] to-[#0A0D17] border border-white/15 ring-1 ring-white/5 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden backdrop-blur-md">
               <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                  <div className={`text-[11px] font-bold uppercase tracking-wider ${config.accentText}`}>
                     Booking Summary
                   </div>
                   <h3 className="text-xl font-extrabold text-white">
@@ -606,14 +645,14 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
             </div>
 
             {/* Assistance Box */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs flex items-center justify-between shadow-cinema-soft">
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-amber-400" aria-hidden="true" />
+                <Phone className={`w-4 h-4 ${config.accentText}`} aria-hidden="true" />
                 <span className="text-gray-300">Need instant date check?</span>
               </div>
               <a
                 href="tel:+919168530789"
-                className="font-bold text-white hover:text-amber-400 transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none rounded px-1"
+                className={`font-bold text-white hover:${config.accentText} transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none rounded px-1`}
               >
                 +91 91685 30789
               </a>
@@ -631,12 +670,12 @@ export function BookingWizard({ initialTheaterId, initialOccasion }: BookingWiza
           aria-describedby="booking-success-desc"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
         >
-          <div className="w-full max-w-lg rounded-3xl bg-[#12151e] border-2 border-white/20 p-6 sm:p-8 shadow-2xl relative text-left">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0F121C] border border-white/20 ring-1 ring-white/10 p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.9)] relative text-left">
             <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-4 text-emerald-400">
               <CheckCircle className="w-8 h-8" aria-hidden="true" />
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
+            <div className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} mb-1`}>
               <PartyPopper className="w-4 h-4" aria-hidden="true" />
               <span>Booking Request Received!</span>
             </div>

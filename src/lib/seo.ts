@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   description:
     "Pune's premier private theater and celebration lounge in Ravet. Luxury 150\"-200\" 4K screens, 1200W Dolby Atmos sound, custom birthday & anniversary decor, fog entry, and OTT streaming.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://houseofott.vercel.app",
-  ogImage: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80",
+  ogImage: "/images/venue/house-of-ott-anniversary-teddy-setup.jpg",
   phone: "+91 91685 30789",
   whatsappNumber: "919168530789",
   email: "houseofott.ravet@gmail.com",
@@ -40,9 +40,12 @@ export function generateLocalBusinessSchema() {
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
     image: [
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=80",
+      "/images/venue/house-of-ott-anniversary-teddy-setup.jpg",
+      "/images/venue/house-of-ott-birthday-neon-setup.jpg",
+      "/images/venue/house-of-ott-proposal-butterfly-setup.jpg",
+      "/images/venue/cold-pyro-cake-celebration.jpg",
+      "/images/venue/cloud-fog-entrance-real.jpg",
+      "/images/venue/real-gaming-suite.jpg",
     ],
     priceRange: SITE_CONFIG.priceRange,
     address: {

@@ -14,11 +14,11 @@ export const THEATERS: TheaterRoom[] = [
     extraPersonPrice: 350,
     badge: "Most Popular For Couples",
     popular: true,
-    image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/venue/house-of-ott-anniversary-teddy-setup.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80"
+      "/images/venue/house-of-ott-anniversary-teddy-setup.jpg",
+      "/images/venue/house-of-ott-proposal-butterfly-setup.jpg",
+      "/images/venue/cloud-fog-entrance-real.jpg"
     ],
     features: [
       "150-inch 4K HDR Laser Projection",
@@ -50,11 +50,11 @@ export const THEATERS: TheaterRoom[] = [
     extraPersonPrice: 300,
     badge: "Bestseller For Birthdays",
     popular: true,
-    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/venue/house-of-ott-birthday-neon-setup.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80"
+      "/images/venue/house-of-ott-birthday-neon-setup.jpg",
+      "/images/venue/cold-pyro-cake-celebration.jpg",
+      "/images/venue/real-gaming-suite.jpg"
     ],
     features: [
       "180-inch 4K Ultra-Wide Acoustic Screen",
@@ -86,11 +86,11 @@ export const THEATERS: TheaterRoom[] = [
     extraPersonPrice: 250,
     badge: "VIP Grand Hall",
     popular: false,
-    image: "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/venue/house-of-ott-proposal-butterfly-setup.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80"
+      "/images/venue/house-of-ott-proposal-butterfly-setup.jpg",
+      "/images/venue/cloud-fog-entrance-real.jpg",
+      "/images/venue/house-of-ott-anniversary-teddy-setup.jpg"
     ],
     features: [
       "200-inch 4K IMAX-grade mega projection",

@@ -1,201 +1,221 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { Star, ShieldCheck, ArrowRight, Utensils, Music, Sparkles, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
-import { Star, ShieldCheck, Video, MapPin, ArrowRight, Play, Utensils, Music, Sparkles, Check, X } from "lucide-react";
 
 export function HeroSection() {
   const { config } = useTheme();
-  const [showTeaser, setShowTeaser] = useState(false);
+
+  // Authentic photos from the Google Profile (https://share.google/aBG7gWmvFooTEkLFQ)
+  const heroImages = [
+    {
+      src: "/images/venue/house-of-ott-anniversary-teddy-setup.jpg",
+      label: "Anniversary Suite",
+      alt: "Romantic Anniversary & Couple Setup at House of OTT Ravet"
+    },
+    {
+      src: "/images/venue/house-of-ott-birthday-neon-setup.jpg",
+      label: "Birthday Setup",
+      alt: "Glowing Birthday Neon Setup at House of OTT Ravet"
+    },
+    {
+      src: "/images/venue/house-of-ott-proposal-butterfly-setup.jpg",
+      label: "VIP Grand Hall",
+      alt: "VIP Grand Hall & Proposal Setup at House of OTT Ravet"
+    },
+    {
+      src: "/images/venue/hero-cinema-setup.jpg",
+      label: "Private Cinema",
+      alt: "Private Cinema Screening Suite at House of OTT Ravet"
+    }
+  ];
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Auto-advance photos every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
+
+  const prevImage = () => {
+    setActiveImageIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
+
+  const nextImage = () => {
+    setActiveImageIndex((prev) => (prev + 1) % heroImages.length);
+  };
 
   return (
     <section 
       aria-labelledby="hero-heading" 
-      className="relative pt-24 pb-20 overflow-hidden bg-gradient-to-b from-[#07080B] via-[#0D0F17] to-[#07080B] border-b border-white/10"
+      className="relative pt-8 pb-14 sm:pt-12 sm:pb-18 lg:pt-16 lg:pb-20 overflow-hidden bg-gradient-to-b from-[#06070A] via-[#0B0E17] to-[#06070A] border-b border-white/10"
     >
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-red-600/10 rounded-full blur-[130px] pointer-events-none" />
+      {/* Dynamic ambient color glow according to theme */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-rose-500/10 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Grid Pattern Overlay */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
           backgroundSize: "32px 32px"
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        {/* Rating & Location Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md shadow-lg">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-xs font-semibold text-gray-200">
-            Ravet, Pune&apos;s Exclusive Private Cinema &amp; Lounge
-          </span>
-          <span className="text-gray-600" aria-hidden="true">|</span>
-          <div className="flex items-center gap-1 text-amber-400 text-xs font-bold">
-            <Star className="w-3.5 h-3.5 fill-amber-400" aria-hidden="true" />
-            <span>4.9 / 5 (580+ Google Reviews)</span>
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* 1. IMAGES FIRST (Left Column on Desktop, Top on Mobile) */}
+          <div className="lg:col-span-6 order-first relative">
+            <div className="absolute -inset-2 bg-gradient-to-r from-amber-500/20 via-rose-500/15 to-amber-500/10 rounded-3xl blur-2xl opacity-75 pointer-events-none" />
 
-        {/* Main H1 Headline */}
-        <h1 
-          id="hero-heading" 
-          className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.1] mb-6"
-        >
-          Your Private Cinema. <br />
-          <span className={`text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-400 to-amber-200`}>
-            Your Personal Celebration.
-          </span>
-        </h1>
+            <div className="relative rounded-3xl overflow-hidden bg-[#0D101C] border border-white/15 p-2.5 sm:p-3 shadow-2xl shadow-black/80 ring-1 ring-white/10">
+              {/* Main Photo Container */}
+              <div className="relative h-[340px] sm:h-[420px] md:h-[460px] w-full rounded-2xl overflow-hidden bg-black shadow-inner group">
+                <Image
+                  src={heroImages[activeImageIndex].src}
+                  alt={heroImages[activeImageIndex].alt}
+                  fill
+                  className="object-cover object-center transition-all duration-700 opacity-100"
+                  priority
+                />
 
-        {/* Subtitle */}
-        <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 font-normal leading-relaxed">
-          Book private 4K laser theaters for <strong className="text-white font-semibold">Birthdays</strong>,{" "}
-          <strong className="text-white font-semibold">Romantic Anniversaries</strong>,{" "}
-          <strong className="text-white font-semibold">Proposals</strong> &amp;{" "}
-          <strong className="text-white font-semibold">Movie Dates</strong> in Ravet, Pune. 
-          Enjoy 150&quot;–200&quot; giant screens, 1200W Dolby Atmos sound, custom neon decor &amp; cloud fog entry.
-        </p>
+                {/* Subtle top edge vignette */}
+                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
 
-        {/* OTT Platforms Supported Ticker */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 max-w-3xl mx-auto mb-8 text-xs text-gray-400 font-medium">
-          <span className="text-gray-500 uppercase tracking-wider text-[11px] font-bold">Stream On Big Screen:</span>
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white font-bold">NETFLIX 4K</span>
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white font-bold">PRIME VIDEO</span>
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white font-bold">HOTSTAR</span>
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white font-bold">YOUTUBE 4K</span>
-          <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white font-bold">PS5 GAMING</span>
-        </div>
+                {/* Floating Top Venue Tag */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-[11px] font-bold text-amber-300 border border-amber-400/30 shadow-lg">
+                    Real Photo • Sector 29, Ravet
+                  </span>
+                </div>
 
-        {/* Feature Badges Grid */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-4xl mx-auto mb-10 text-xs sm:text-sm text-gray-200">
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <Video className="w-4 h-4 text-rose-400" aria-hidden="true" />
-            <span>150&quot;–200&quot; 4K Laser Screens</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <Music className="w-4 h-4 text-amber-400" aria-hidden="true" />
-            <span>1200W Dolby Atmos Audio</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <Sparkles className="w-4 h-4 text-purple-400" aria-hidden="true" />
-            <span>Cloud Fog &amp; Neon Sign Decor</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <Utensils className="w-4 h-4 text-emerald-400" aria-hidden="true" />
-            <span>Outside Food Allowed</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <ShieldCheck className="w-4 h-4 text-cyan-400" aria-hidden="true" />
-            <span>100% Privacy Guaranteed</span>
-          </div>
-        </div>
-
-        {/* Primary CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-12">
-          <a
-            href="#book"
-            className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none ${config.buttonClass}`}
-          >
-            <Sparkles className="w-4 h-4" aria-hidden="true" />
-            <span>Reserve Slot (Advance ₹750)</span>
-            <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" />
-          </a>
-
-          <button
-            type="button"
-            onClick={() => setShowTeaser(true)}
-            className="w-full sm:w-auto px-6 py-4 rounded-xl font-semibold text-xs text-gray-200 bg-white/10 hover:bg-white/15 border border-white/15 transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
-          >
-            <Play className="w-4 h-4 text-amber-400 fill-amber-400" aria-hidden="true" />
-            <span>Watch Venue Atmosphere</span>
-          </button>
-        </div>
-
-        {/* Location Notice Banner */}
-        <div className="max-w-2xl mx-auto rounded-2xl bg-white/5 border border-white/10 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-left backdrop-blur-sm shadow-xl">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
-              <MapPin className="w-5 h-5 text-amber-400" aria-hidden="true" />
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-wider font-bold text-amber-400">
-                Exclusive Pune Venue
+                {/* Floating Navigation Arrows */}
+                <button
+                  type="button"
+                  onClick={prevImage}
+                  aria-label="Previous photo"
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/70 hover:bg-black text-white hover:text-amber-400 transition-colors border border-white/15 shadow-lg active:scale-95"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextImage}
+                  aria-label="Next photo"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/70 hover:bg-black text-white hover:text-amber-400 transition-colors border border-white/15 shadow-lg active:scale-95"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
-              <div className="text-sm font-semibold text-white">
-                S.No. 215, Prime Ville, Plot No. 4, Sector 29, Ravet, Pune
-              </div>
-              <div className="text-xs text-gray-400">
-                5 mins from Akurdi &amp; Kiwale • 10 mins from Wakad &amp; Hinjawadi IT Park
+
+              {/* Photo Switcher Thumbnail Pills */}
+              <div className="grid grid-cols-4 gap-2 mt-2.5">
+                {heroImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold truncate transition-all border ${
+                      activeImageIndex === idx
+                        ? "bg-amber-400 text-black border-amber-400 shadow-md font-bold"
+                        : "bg-white/5 hover:bg-white/10 text-gray-300 border-white/10"
+                    }`}
+                  >
+                    {img.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
-          <a
-            href="https://share.google/6g19LyHLut3CkEDbk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white border border-white/15 transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
-          >
-            Open in Google Maps →
-          </a>
-        </div>
-      </div>
 
-      {/* Atmosphere Preview Lightbox Modal */}
-      {showTeaser && (
-        <div 
-          role="dialog"
-          aria-modal="true"
-          aria-label="House of OTT Atmosphere Preview"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-        >
-          <div className="relative w-full max-w-3xl rounded-2xl bg-[#121520] border border-white/20 overflow-hidden p-6 text-left shadow-2xl">
-            <button
-              onClick={() => setShowTeaser(false)}
-              className="absolute top-4 right-4 p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
-              aria-label="Close preview"
+          {/* 2. TEXT & ACTIONS (Right Column on Desktop, Below Image on Mobile) */}
+          <div className="lg:col-span-6 text-left">
+            {/* Authentic Google Review Tag */}
+            <a
+              href="https://share.google/aBG7gWmvFooTEkLFQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-amber-400/40 text-xs font-semibold text-gray-200 mb-4 backdrop-blur-md transition-all shadow-cinema-soft hover:shadow-cinema-hover group"
             >
-              <X className="w-5 h-5" />
-            </button>
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="flex items-center gap-1 text-amber-400 font-bold">
+                <Star className="w-3.5 h-3.5 fill-amber-400" />
+                <span>4.9</span>
+              </span>
+              <span className="text-gray-300 font-medium">580+ Google Reviews</span>
+              <span className="text-gray-600">•</span>
+              <span className="text-amber-300/90 group-hover:text-amber-300">Ravet, Pune</span>
+            </a>
 
-            <h3 className="text-xl font-bold text-white mb-2">
-              Inside House of OTT (Ravet, Pune)
-            </h3>
-            <p className="text-xs text-gray-300 mb-4">
-              Real private cinema rooms with plush couple recliners, Dolby Atmos surround sound, and customized ambient celebration lighting.
+            {/* Main Headline */}
+            <h1 
+              id="hero-heading" 
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] mb-3.5 drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
+            >
+              Your Private Cinema. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-300 to-amber-200">
+                Made For Celebrations.
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-gray-300 max-w-xl font-normal leading-relaxed mb-5">
+              Pune&apos;s premier private theater lounge in Ravet. Celebrate birthdays, anniversaries, and romantic dates in 100% soundproof luxury.
             </p>
 
-            <div className="relative h-80 w-full rounded-xl overflow-hidden mb-4 bg-black">
-              <Image
-                src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80"
-                alt="House of OTT Private Theater Interior"
-                fill
-                className="object-cover"
-              />
+            {/* Key Value Badges */}
+            <div className="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-200">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 shadow-cinema-soft">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>100% Private Theater</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 shadow-cinema-soft">
+                <Utensils className="w-4 h-4 text-amber-400 shrink-0" />
+                <span>Outside Food Allowed</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 shadow-cinema-soft">
+                <Sparkles className="w-4 h-4 text-purple-400 shrink-0" />
+                <span>Neon &amp; Balloon Decor</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 shadow-cinema-soft">
+                <Music className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Dolby Atmos Sound</span>
+              </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="text-xs text-amber-400 font-semibold">
-                ★ 100% Sanitized &amp; Private • Air-Conditioned
-              </div>
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <a
-                href="#book"
-                onClick={() => setShowTeaser(false)}
-                className={`px-4 py-2 rounded-lg text-xs uppercase tracking-wide font-bold ${config.buttonClass}`}
+                href="#events"
+                className={`py-3.5 px-7 rounded-xl font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-95 ${config.buttonClass}`}
               >
-                Book This Theater Now
+                <span>Explore Celebrations</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+
+              <a
+                href="https://wa.me/919168530789?text=Hi%20House%20of%20OTT%20Ravet!%20I%20would%20like%20to%20know%20more%20about%20booking%20a%20private%20theater."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-3.5 px-6 rounded-xl font-semibold text-xs text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 shadow-cinema-soft hover:shadow-cinema-hover flex items-center justify-center gap-2 transition-all duration-300"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>WhatsApp Us</span>
               </a>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 }

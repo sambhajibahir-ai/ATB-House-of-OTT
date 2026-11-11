@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #07080B;
+  --background: #06070A;
   --foreground: #F8FAFC;
 }
 
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
-  background-color: #07080B;
+  background-color: #06070A;
 }
 
 body {
   color: #F8FAFC;
-  background-color: #07080B;
+  background-color: #06070A;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -24,7 +24,7 @@ body {
 
 /* Accessible focus visible (WCAG 2.4.7) */
 :focus-visible {
-  outline: 2px solid #E5A93C;
+  outline: 2px solid #F59E0B;
   outline-offset: 2px;
 }
 
@@ -40,30 +40,6 @@ body {
   }
 }
 
-/* Screen reader utility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.not-sr-only:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-}
-
 /* Custom dark scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -71,22 +47,40 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #090B10;
+  background: #080A10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232B3E;
+  background: #1E2536;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #384564;
+  background: #2E3850;
 }
 
-/* Cinematic backdrop blur card */
+/* Luxury Multi-layer Shadow Effects */
+.shadow-cinema-soft {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7),
+              0 20px 40px -15px rgba(0, 0, 0, 0.8),
+              0 0 1px 1px rgba(255, 255, 255, 0.06);
+}
+
+.shadow-cinema-hover {
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85),
+              0 0 35px -5px rgba(245, 158, 11, 0.2),
+              0 0 1px 1px rgba(245, 158, 11, 0.3);
+}
+
+.shadow-ambient-glow {
+  box-shadow: 0 0 40px -5px rgba(245, 158, 11, 0.15),
+              0 15px 35px -10px rgba(0, 0, 0, 0.9);
+}
+
+/* Frosted glass panel */
 .glass-panel-dark {
-  background: rgba(18, 22, 33, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(13, 16, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }

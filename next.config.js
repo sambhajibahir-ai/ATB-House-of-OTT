@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["images.unsplash.com", "lh3.googleusercontent.com"],
   },
+  experimental: {
+    webpackBuildWorker: false,
+  },
 };
 
 module.exports = nextConfig;
