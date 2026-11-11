@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Film, MapPin, Phone, MessageCircle, Star, Heart } from "lucide-react";
 
 export function Footer() {
@@ -24,11 +25,11 @@ export function Footer() {
               100% soundproof privacy with 4K laser projection and couple recliners.
             </p>
 
-            <div className="flex items-center gap-2 text-amber-400 font-bold">
+            <Link href="/reviews" className="inline-flex items-center gap-2 text-amber-400 font-bold hover:underline">
               <Star className="w-4 h-4 fill-amber-400" aria-hidden="true" />
               <span className="text-white">4.9 / 5 Rating</span>
-              <span className="text-gray-500 font-normal">• 580+ Reviews in Ravet</span>
-            </div>
+              <span className="text-gray-500 font-normal">• 580+ Reviews (Write a Review →)</span>
+            </Link>
           </div>
 
           {/* Quick Links */}
@@ -38,27 +39,32 @@ export function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a href="#events" className="hover:text-white transition-colors">
+                <Link href="/reviews" className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">
+                  ★ Write a Google Review
+                </Link>
+              </li>
+              <li>
+                <a href="/#events" className="hover:text-white transition-colors">
                   Celebration Packages
                 </a>
               </li>
               <li>
-                <a href="#venue-gallery" className="hover:text-white transition-colors">
+                <a href="/#venue-gallery" className="hover:text-white transition-colors">
                   Photo Gallery
                 </a>
               </li>
               <li>
-                <a href="#highlights" className="hover:text-white transition-colors">
+                <a href="/#highlights" className="hover:text-white transition-colors">
                   Effects &amp; Add-ons
                 </a>
               </li>
               <li>
-                <a href="#book" className="hover:text-white transition-colors">
+                <a href="/#book" className="hover:text-white transition-colors">
                   Reserve Slot
                 </a>
               </li>
               <li>
-                <a href="#location" className="hover:text-white transition-colors">
+                <a href="/#location" className="hover:text-white transition-colors">
                   Location &amp; Directions
                 </a>
               </li>

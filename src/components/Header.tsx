@@ -50,31 +50,38 @@ export function Header() {
           </Link>
 
           {/* Simple Desktop Nav */}
-          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-7">
-            <a
-              href="#events"
+          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-6">
+            <Link
+              href="/#events"
               className="text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
             >
               Celebrations
-            </a>
-            <a
-              href="#venue-gallery"
+            </Link>
+            <Link
+              href="/#venue-gallery"
               className="text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
             >
               Photos
-            </a>
-            <a
-              href="#highlights"
+            </Link>
+            <Link
+              href="/#highlights"
               className="text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
             >
-              Effects &amp; Upgrades
-            </a>
-            <a
-              href="#location"
+              Upgrades
+            </Link>
+            <Link
+              href="/#location"
               className="text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
             >
               Location
-            </a>
+            </Link>
+            <Link
+              href="/reviews"
+              className="text-xs font-semibold uppercase tracking-wider text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1"
+            >
+              <span>Reviews</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">4.9★</span>
+            </Link>
           </nav>
 
           {/* Right Direct Actions */}
@@ -113,34 +120,42 @@ export function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 pt-3 border-t border-white/10 pb-3 animate-fade-in space-y-3">
             <nav className="flex flex-col gap-2">
-              <a
-                href="#events"
+              <Link
+                href="/#events"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Celebrations
-              </a>
-              <a
-                href="#venue-gallery"
+              </Link>
+              <Link
+                href="/#venue-gallery"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Venue Photos
-              </a>
-              <a
-                href="#highlights"
+              </Link>
+              <Link
+                href="/#highlights"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
               >
-                Effects &amp; Upgrades
-              </a>
-              <a
-                href="#location"
+                Upgrades
+              </Link>
+              <Link
+                href="/#location"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Location &amp; Directions
-              </a>
+              </Link>
+              <Link
+                href="/reviews"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-amber-400 hover:bg-white/5 flex items-center justify-between"
+              >
+                <span>Write a Google Review</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-amber-400/20 text-amber-300">4.9★</span>
+              </Link>
             </nav>
 
             <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">

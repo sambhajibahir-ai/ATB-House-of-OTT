@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Star, ShieldCheck, ArrowRight, Utensils, Music, Sparkles, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -137,11 +138,9 @@ export function HeroSection() {
 
           {/* 2. TEXT & ACTIONS (Right Column on Desktop, Below Image on Mobile) */}
           <div className="lg:col-span-6 text-left">
-            {/* Authentic Google Review Tag */}
-            <a
-              href="https://share.google/aBG7gWmvFooTEkLFQ"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Authentic Google Review Tag -> Links to Reviews page */}
+            <Link
+              href="/reviews"
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-amber-400/40 text-xs font-semibold text-gray-200 mb-4 backdrop-blur-md transition-all shadow-cinema-soft hover:shadow-cinema-hover group"
             >
               <span className="flex h-2 w-2 relative">
@@ -155,7 +154,7 @@ export function HeroSection() {
               <span className="text-gray-300 font-medium">580+ Google Reviews</span>
               <span className="text-gray-600">•</span>
               <span className="text-amber-300/90 group-hover:text-amber-300">Ravet, Pune</span>
-            </a>
+            </Link>
 
             {/* Main Headline */}
             <h1 

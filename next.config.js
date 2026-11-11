@@ -7,7 +7,15 @@ const nextConfig = {
   experimental: {
     webpackBuildWorker: false,
   },
+  async redirects() {
+    return [
+      {
+        source: "/review",
+        destination: "/reviews",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
-
