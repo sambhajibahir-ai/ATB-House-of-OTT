@@ -10,10 +10,11 @@ import {
   Sparkles, 
   Shuffle, 
   ArrowLeft, 
-  MessageSquare
+  CheckCircle2
 } from "lucide-react";
 import { 
   GOOGLE_REVIEW_URL, 
+  GOOGLE_REVIEW_SEARCH_URL,
   REVIEW_OCCASIONS, 
   generateDynamicReview 
 } from "@/data/reviewTemplates";
@@ -27,7 +28,6 @@ export function ReviewGenerator() {
   const [variantIndex, setVariantIndex] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   // Generate review whenever occasion or variant index changes
   useEffect(() => {
@@ -50,28 +50,33 @@ export function ReviewGenerator() {
     setCopied(false);
   };
 
-  // Primary Copy & Go to Google Action
-  const handleCopyAndGoToGoogle = async () => {
+  // Copy to clipboard helper
+  const copyToClipboard = async () => {
     try {
-      if (navigator?.clipboard) {
+      if (navigator?.clipboard?.writeText) {
         await navigator.clipboard.writeText(reviewText);
       } else {
         const textarea = document.createElement("textarea");
         textarea.value = reviewText;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
       }
+      setCopied(true);
+      return true;
     } catch (err) {
-      console.warn("Clipboard copy failed, opening URL:", err);
+      console.warn("Clipboard copy failed:", err);
+      setCopied(true);
+      return false;
     }
+  };
 
-    setCopied(true);
-    setShowConfirmation(true);
-
-    // Open Google Review "Write a review" popup in a new tab
-    window.open(GOOGLE_REVIEW_URL, "_blank", "noopener,noreferrer");
+  // Handle primary action (copy + native link open)
+  const handlePrimaryClick = () => {
+    copyToClipboard();
   };
 
   return (
@@ -107,7 +112,7 @@ export function ReviewGenerator() {
             Rate House of OTT on Google
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-md mx-auto">
-            Choose what you celebrated, copy the ready draft, and paste it on Google in seconds!
+            Choose what you celebrated, copy the ready 5-star draft, and jump straight into Google Reviews!
           </p>
         </div>
 
@@ -150,15 +155,26 @@ export function ReviewGenerator() {
               <span className="text-xs font-bold text-white ml-1.5">5.0 Star Review Draft</span>
             </div>
 
-            <button
-              type="button"
-              onClick={handleShuffle}
-              className="text-xs text-amber-300 hover:text-amber-200 flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
-              title="Shuffle review wording"
-            >
-              <Shuffle className="w-3.5 h-3.5 text-amber-400" />
-              <span>Shuffle Phrasing</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleShuffle}
+                className="text-xs text-amber-300 hover:text-amber-200 flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                title="Shuffle review phrasing"
+              >
+                <Shuffle className="w-3.5 h-3.5 text-amber-400" />
+                <span>Shuffle</span>
+              </button>
+              <button
+                type="button"
+                onClick={copyToClipboard}
+                className="text-xs text-gray-300 hover:text-white flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                title="Copy text only"
+              >
+                <Copy className="w-3.5 h-3.5 text-gray-400" />
+                <span>Copy</span>
+              </button>
+            </div>
           </div>
 
           <div className="relative">
@@ -176,16 +192,27 @@ export function ReviewGenerator() {
           </div>
         </div>
 
-        {/* Primary Laser-Focus Button: COPY & GO TO GOOGLE */}
-        <button
-          type="button"
-          onClick={handleCopyAndGoToGoogle}
+        {/* Copied Notification Badge */}
+        {copied && (
+          <div className="mb-4 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2 animate-fade-in">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span><strong>Review draft copied!</strong> Now opening Google — tap 5 stars and paste (Ctrl+V / Long-press).</span>
+          </div>
+        )}
+
+        {/* Primary Laser-Focus Button: Direct Native Link to Google's Write Review Dialog */}
+        <a
+          href={GOOGLE_REVIEW_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handlePrimaryClick}
           className={`w-full py-4 px-6 rounded-2xl font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-xl hover:scale-[1.01] active:scale-95 ${config.buttonClass}`}
         >
           {copied ? (
             <>
               <Check className="w-5 h-5 text-black" />
-              <span>Copied! Opening Google Reviews...</span>
+              <span>Review Copied • Open Google Review Box</span>
+              <ExternalLink className="w-4 h-4 ml-0.5" />
             </>
           ) : (
             <>
@@ -194,12 +221,12 @@ export function ReviewGenerator() {
               <ExternalLink className="w-4 h-4 ml-0.5" />
             </>
           )}
-        </button>
+        </a>
 
         {/* 3-Step Clear Instructions Box */}
         <div className="mt-5 p-4 rounded-2xl bg-white/5 border border-white/10">
           <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2">
-            How to Post on Google:
+            How to Post on Google in 3 Seconds:
           </div>
           <ol className="space-y-1.5 text-xs text-gray-300">
             <li className="flex items-start gap-2">
@@ -208,26 +235,29 @@ export function ReviewGenerator() {
             </li>
             <li className="flex items-start gap-2">
               <span className="w-4 h-4 rounded-full bg-amber-400 text-black font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>
-              <span>On Google, tap the <strong>5th Star ⭐⭐⭐⭐⭐</strong>.</span>
+              <span>On Google's review box, select <strong>5 Stars ⭐⭐⭐⭐⭐</strong>.</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="w-4 h-4 rounded-full bg-amber-400 text-black font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">3</span>
-              <span>Paste (<kbd className="bg-white/10 px-1 py-0.2 rounded text-[11px]">Ctrl+V</kbd> or hold &amp; paste) and hit <strong>Post</strong>!</span>
+              <span>Paste (<kbd className="bg-white/10 px-1 py-0.2 rounded text-[11px]">Ctrl+V</kbd> or long-press paste) and click <strong>Post</strong>!</span>
             </li>
           </ol>
         </div>
 
-        {/* Subtle direct link for visitors who prefer writing completely from scratch */}
-        <div className="text-center mt-4">
-          <a
-            href={GOOGLE_REVIEW_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[11px] text-gray-400 hover:text-gray-200 inline-flex items-center gap-1 transition-colors underline"
-          >
-            <span>Or open blank Google review box directly</span>
-            <ExternalLink className="w-3 h-3 text-amber-400" />
-          </a>
+        {/* Alternative direct Google Search popup link if local browser blocks direct intent */}
+        <div className="text-center mt-4 space-y-1">
+          <div>
+            <a
+              href={GOOGLE_REVIEW_SEARCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={copyToClipboard}
+              className="text-[11px] text-gray-400 hover:text-amber-300 inline-flex items-center gap-1 transition-colors underline underline-offset-4"
+            >
+              <span>Review box didn't open? Click here to open via Google Search popup</span>
+              <ExternalLink className="w-3 h-3 text-amber-400" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

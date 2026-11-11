@@ -1,5 +1,12 @@
-export const GOOGLE_REVIEW_URL = 
-  "https://www.google.com/search?q=HOUSE+OF+OTT&oq=house+of+&gs_lcrp=EgZjaHJvbWUqCAgBEEUYJxg7MgYIABBFGDkyCAgBEEUYJxg7MggIAhBFGCcYOzIKCAMQABiABBi0BzIKCAQQLhixAxiABDIGCAUQRRg9MgYIBhBFGD0yBggHEEUYPdIBCDI3NDFqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8#lrd=0x3bc2b9ee3aef87fb:0x886e07dd1628d9f0,3,,,,";
+// House of OTT Ravet Google Place ID (decoded from Hex Feature ID 0x3bc2b9ee3aef87fb:0x886e07dd1628d9f0)
+export const GOOGLE_PLACE_ID = "ChIJ-4fvOu65wjsR8NkoFt0Hbog";
+
+// Official Google Direct "Write a Review" dialog endpoint (jumps directly into the review composer)
+export const GOOGLE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;
+
+// Fallback direct search link with clean #lrd=...,3 review dialog trigger
+export const GOOGLE_REVIEW_SEARCH_URL = 
+  "https://www.google.com/search?q=HOUSE+OF+OTT+Ravet#lrd=0x3bc2b9ee3aef87fb:0x886e07dd1628d9f0,3";
 
 export interface ReviewOccasion {
   id: string;
