@@ -237,7 +237,7 @@ export function BookingWizard({
           {/* Main Form */}
           <form onSubmit={handleBookingSubmit} className="lg:col-span-7 space-y-6" noValidate>
             {/* Step 1: Date & Time Slot */}
-            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+            <fieldset className="p-4 sm:p-6 md:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
               <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 <span>Step 1: Choose Date &amp; 3-Hour Slot</span>
@@ -256,7 +256,7 @@ export function BookingWizard({
                     onChange={(e) => setEventDate(e.target.value)}
                     required
                     aria-required="true"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -268,7 +268,7 @@ export function BookingWizard({
                     id="booking-slot-select"
                     value={selectedSlotId}
                     onChange={(e) => setSelectedSlotId(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none transition-colors"
                   >
                     {TIME_SLOTS.map((slot) => (
                       <option key={slot.id} value={slot.id} className="bg-[#0F121C]">
@@ -304,7 +304,7 @@ export function BookingWizard({
             </fieldset>
 
             {/* Step 2: Theater & Guests */}
-            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+            <fieldset className="p-4 sm:p-6 md:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
               <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Users className="w-4 h-4" aria-hidden="true" />
                 <span>Step 2: Select Theater &amp; Guest Count</span>
@@ -323,7 +323,7 @@ export function BookingWizard({
                         if (guestCount < t.baseCapacity) setGuestCount(t.baseCapacity);
                         if (guestCount > t.maxCapacity) setGuestCount(t.maxCapacity);
                       }}
-                      className={`p-3.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
+                      className={`p-3.5 rounded-xl text-left border transition-all focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none min-h-[48px] ${
                         isSelected
                           ? `bg-white/15 ${config.accentBorder} text-white ring-1 ring-white/20 shadow-ambient-glow`
                           : "bg-white/5 border-white/5 text-gray-300 hover:bg-white/10"
@@ -338,10 +338,10 @@ export function BookingWizard({
               </div>
 
               {/* Guest counter */}
-              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+              <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-white/5 border border-white/5">
                 <div>
                   <div className="text-xs font-bold text-white">Number of Guests:</div>
-                  <div className="text-[11px] text-gray-400">
+                  <div className="text-[10px] sm:text-[11px] text-gray-400">
                     Base price includes {currentTheater.baseCapacity} people. Extra: ₹{currentTheater.extraPersonPrice}/person.
                   </div>
                 </div>
@@ -371,7 +371,7 @@ export function BookingWizard({
             </fieldset>
 
             {/* Step 3: Occasion & Add-ons */}
-            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+            <fieldset className="p-4 sm:p-6 md:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
               <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <Sparkles className="w-4 h-4" aria-hidden="true" />
                 <span>Step 3: Occasion &amp; Custom Add-ons</span>
@@ -385,7 +385,7 @@ export function BookingWizard({
                   id="booking-occasion"
                   value={selectedOccasion}
                   onChange={(e) => setSelectedOccasion(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-[#0F121C] border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none"
                 >
                   {OCCASIONS.map((occ) => (
                     <option key={occ.id} value={occ.title} className="bg-[#0F121C]">
@@ -415,7 +415,7 @@ export function BookingWizard({
                         role="checkbox"
                         aria-checked={isSelected}
                         onClick={() => toggleAddon(addon.id)}
-                        className={`p-3 rounded-xl border text-left cursor-pointer transition-all flex items-center justify-between gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
+                        className={`p-3 rounded-xl border text-left cursor-pointer transition-all flex items-center justify-between gap-2 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none min-h-[44px] ${
                           isSelected
                             ? `bg-white/15 ${config.accentBorder} text-white ring-1 ring-white/10`
                             : "bg-white/5 border-white/5 text-gray-400 hover:text-white hover:bg-white/10"
@@ -444,7 +444,7 @@ export function BookingWizard({
             </fieldset>
 
             {/* Step 4: Contact Details */}
-            <fieldset className="p-6 sm:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
+            <fieldset className="p-4 sm:p-6 md:p-7 rounded-2xl bg-[#0E111C]/90 backdrop-blur-md border border-white/10 ring-1 ring-white/5 shadow-cinema-soft hover:shadow-cinema-hover transition-all duration-300">
               <legend className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${config.accentText} px-1 mb-4`}>
                 <ShieldCheck className="w-4 h-4" aria-hidden="true" />
                 <span>Step 4: Your Contact &amp; Guest Details</span>
@@ -463,7 +463,7 @@ export function BookingWizard({
                     placeholder="e.g. Rahul Patil"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                   />
                 </div>
 
@@ -481,7 +481,7 @@ export function BookingWizard({
                       placeholder="e.g. 9876543210"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                     />
                     <div id="phone-help" className="text-[10px] text-gray-400 mt-1">
                       We send your slot confirmation directly on WhatsApp.
@@ -498,7 +498,7 @@ export function BookingWizard({
                       placeholder="rahul@example.com"
                       value={customerEmail}
                       onChange={(e) => setCustomerEmail(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                     />
                   </div>
                 </div>
@@ -513,7 +513,7 @@ export function BookingWizard({
                     placeholder="e.g. 'Playing surprise video clip at 7 PM', 'Name on backdrop: Sneha'"
                     value={specialRequests}
                     onChange={(e) => setSpecialRequests(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-amber-400 focus:outline-none placeholder:text-gray-600"
                   />
                 </div>
               </div>
@@ -528,7 +528,7 @@ export function BookingWizard({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`mt-6 w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none ${config.buttonClass}`}
+                className={`mt-6 w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none min-h-[48px] ${config.buttonClass}`}
               >
                 {isSubmitting ? (
                   <span>Recording Booking to Google Sheets...</span>
@@ -545,7 +545,7 @@ export function BookingWizard({
 
           {/* Sticky Order Summary */}
           <div className="lg:col-span-5 sticky top-28 space-y-4">
-            <div className="rounded-3xl bg-gradient-to-b from-[#111524] to-[#0A0D17] border border-white/15 ring-1 ring-white/5 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden backdrop-blur-md">
+            <div className="rounded-3xl bg-gradient-to-b from-[#111524] to-[#0A0D17] border border-white/15 ring-1 ring-white/5 p-4 sm:p-6 md:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden backdrop-blur-md">
               <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
                 <div>
                   <div className={`text-[11px] font-bold uppercase tracking-wider ${config.accentText}`}>

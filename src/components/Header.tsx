@@ -108,7 +108,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl bg-white/5 text-gray-200 border border-white/10 focus:outline-none"
+            className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 text-gray-200 border border-white/10 focus:outline-none"
             aria-label="Toggle navigation"
             aria-expanded={mobileMenuOpen}
           >
@@ -119,39 +119,39 @@ export function Header() {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 pt-3 border-t border-white/10 pb-3 animate-fade-in space-y-3">
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1.5">
               <Link
                 href="/#events"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
+                className="px-3 min-h-[44px] flex items-center rounded-xl text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Celebrations
               </Link>
               <Link
                 href="/#venue-gallery"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
+                className="px-3 min-h-[44px] flex items-center rounded-xl text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Venue Photos
               </Link>
               <Link
                 href="/#highlights"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
+                className="px-3 min-h-[44px] flex items-center rounded-xl text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Upgrades
               </Link>
               <Link
                 href="/#location"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-200 hover:bg-white/5"
+                className="px-3 min-h-[44px] flex items-center rounded-xl text-sm font-medium text-gray-200 hover:bg-white/5"
               >
                 Location &amp; Directions
               </Link>
               <Link
                 href="/reviews"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-amber-400 hover:bg-white/5 flex items-center justify-between"
+                className="px-3 min-h-[44px] flex items-center justify-between rounded-xl text-sm font-medium text-amber-400 hover:bg-white/5"
               >
                 <span>Write a Google Review</span>
                 <span className="text-[10px] px-2 py-0.5 rounded bg-amber-400/20 text-amber-300">4.9★</span>

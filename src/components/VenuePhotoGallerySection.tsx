@@ -242,7 +242,7 @@ export function VenuePhotoGallerySection({ onSelectPhoto }: VenuePhotoGallerySec
             <div
               key={photo.id}
               onClick={() => setLightboxIndex(index)}
-              className="flex-shrink-0 w-[280px] sm:w-[380px] md:w-[440px] h-[340px] sm:h-[420px] md:h-[460px] snap-start rounded-3xl overflow-hidden bg-black border border-white/15 hover:border-amber-400/50 relative cursor-pointer group shadow-2xl transition-all duration-300 hover:scale-[1.015]"
+              className="flex-shrink-0 w-[78vw] max-w-[320px] sm:w-[380px] md:w-[440px] h-[300px] xs:h-[350px] sm:h-[420px] md:h-[460px] snap-start rounded-3xl overflow-hidden bg-black border border-white/15 hover:border-amber-400/50 relative cursor-pointer group shadow-2xl transition-all duration-300 hover:scale-[1.015]"
             >
               {/* Pure High-Resolution Venue Image - Zero Text & Zero Offers */}
               <Image
@@ -250,7 +250,7 @@ export function VenuePhotoGallerySection({ onSelectPhoto }: VenuePhotoGallerySec
                 alt={photo.alt}
                 fill
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-100"
-                sizes="(max-width: 768px) 280px, 440px"
+                sizes="(max-width: 768px) 80vw, 440px"
                 priority={index < 2}
               />
 

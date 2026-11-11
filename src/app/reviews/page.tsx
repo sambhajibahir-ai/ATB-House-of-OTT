@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ReviewGenerator } from "@/components/ReviewGenerator";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SITE_CONFIG } from "@/lib/seo";
@@ -81,10 +80,9 @@ export default function ReviewsPage() {
         }}
       />
 
-      <ThemeSwitcher />
       <Header />
 
-      <main id="main-content" className="pt-4">
+      <main id="main-content" className="pt-2 sm:pt-4">
         <ReviewGenerator />
       </main>
 
